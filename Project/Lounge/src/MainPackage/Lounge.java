@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package MainProgram;
+package MainPackage;
 
 
 import Interfaces.GeneralInformationRepoInterfaces;
@@ -16,10 +16,10 @@ import Interfaces.SupplierSiteInterfaces;
 import genclass.GenericIO;
 import java.util.*;
 
-import static MainProgram.Constants.ALERTING_CUSTOMER;
-import static MainProgram.Constants.ATENDING_CUSTOMER;
-import static MainProgram.Constants.GETTING_NEW_PARTS;
-import static MainProgram.Constants.NUM_CUSTOMERS;
+import static MainPackage.Constants.ALERTING_CUSTOMER;
+import static MainPackage.Constants.ATENDING_CUSTOMER;
+import static MainPackage.Constants.GETTING_NEW_PARTS;
+import static MainPackage.Constants.NUM_CUSTOMERS;
 import java.rmi.RemoteException;
 
 
