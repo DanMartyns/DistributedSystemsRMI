@@ -16,6 +16,8 @@ import static MainPackage.Constants.GETTING_NEW_PARTS;
 import static MainPackage.Constants.NUM_CUSTOMERS;
 
 import EntitiesState.ManagerState;
+import genclass.GenericIO;
+import java.rmi.RemoteException;
 
 /**
  * @author giselapinto
@@ -75,39 +77,43 @@ public class Manager extends Thread {
      */ 
     @Override
     public void run(){
-        
-        while(lounge.getNextTask(ManagerState.CHECKING_WHAT_TO_DO.toString())){            
-            String[] choice = lounge.appraiseSit().split("@"); 
+        try{
+            while(lounge.getNextTask(ManagerState.CHECKING_WHAT_TO_DO.toString())){            
+                String[] choice = lounge.appraiseSit().split("@"); 
 
-            if(choice[0].equals(ATENDING_CUSTOMER)){
-                String[] customer = choice[1].split(",");
-                lounge.talkToCustomer(choice[1], ManagerState.ATTENDING_CUSTOMER.toString());
+                if(choice[0].equals(ATENDING_CUSTOMER)){
+                    String[] customer = choice[1].split(",");
+                    lounge.talkToCustomer(choice[1], ManagerState.ATTENDING_CUSTOMER.toString());
 
-                if(customer[3].equals("0") && customer[4].equals("0")){
-                    repairArea.registerService( choice[1] , ManagerState.POSTING_JOB.toString() );
-                }
-                else if (customer[3].equals("1") && customer[4].equals("0")){               
-                    lounge.handCarKey(choice[1]);
-                    repairArea.registerService( choice[1] , ManagerState.POSTING_JOB.toString() );
-                }               
-                else if (customer[4].equals("1")) {                   
-                    lounge.receivePayment(choice[1]);                       
-                    numRepairedClients++;
+                    if(customer[3].equals("0") && customer[4].equals("0")){
+                        repairArea.registerService( choice[1] , ManagerState.POSTING_JOB.toString() );
+                    }
+                    else if (customer[3].equals("1") && customer[4].equals("0")){               
+                        lounge.handCarKey(choice[1]);
+                        repairArea.registerService( choice[1] , ManagerState.POSTING_JOB.toString() );
+                    }               
+                    else if (customer[4].equals("1")) {                   
+                        lounge.receivePayment(choice[1]);                       
+                        numRepairedClients++;
 
-                    if( numRepairedClients == NUM_CUSTOMERS){
-                        repairArea.shutdownNow(ManagerState.CHECKING_WHAT_TO_DO.toString());               
-                        break;    
-                    }                    
-                }
-            }  
-            else if(choice[0].equals(ALERTING_CUSTOMER)){
-                outsideWorld.phoneCustomer(choice[1], ManagerState.ALERTING_CUSTOMER.toString());            
-            }    
-            else if (choice[0].equals(GETTING_NEW_PARTS)){    
-                int quantidade = supplierSite.goToSupplier(choice[1], ManagerState.GETTING_NEW_PARTS.toString());
-                repairArea.storePart(choice[1], quantidade, ManagerState.REPLENISH_STOCK.toString());
-            }                  
+                        if( numRepairedClients == NUM_CUSTOMERS){
+                            repairArea.shutdownNow(ManagerState.CHECKING_WHAT_TO_DO.toString());               
+                            break;    
+                        }                    
+                    }
+                }  
+                else if(choice[0].equals(ALERTING_CUSTOMER)){
+                    outsideWorld.phoneCustomer(choice[1], ManagerState.ALERTING_CUSTOMER.toString());            
+                }    
+                else if (choice[0].equals(GETTING_NEW_PARTS)){    
+                    int quantidade = supplierSite.goToSupplier(choice[1], ManagerState.GETTING_NEW_PARTS.toString());
+                    repairArea.storePart(choice[1], quantidade, ManagerState.REPLENISH_STOCK.toString());
+                }                  
+            }
+        }
+        catch(RemoteException e){
+            GenericIO.writelnString("Remote exception: " +e.getMessage());
+            System.exit(1);
         }
     }
-  
 }
