@@ -68,11 +68,11 @@ public class MainProgram {
             logger = (GeneralInformationRepoInterfaces) registry.lookup (Constants.LOGGER_NAME_ENTRY);
         }
         catch (NotBoundException ex) {
-            System.out.println("Racing Track is not registered: " + ex.getMessage () );
+            System.out.println("Logger is not registered: " + ex.getMessage () );
             ex.printStackTrace ();
             System.exit(1);
         } catch (RemoteException ex) {
-            System.out.println("Exception thrown while locating Racing Track: " + ex.getMessage () );
+            System.out.println("Exception thrown while locating Logger: " + ex.getMessage () );
             ex.printStackTrace ();
             System.exit (1);
         }
@@ -82,11 +82,11 @@ public class MainProgram {
             outsideWorld = (OutsideWorldInterfaces) registry.lookup (Constants.OUTSIDEWORLD_NAME_ENTRY);
         }
         catch (NotBoundException ex) {
-            System.out.println("Betting Center is not registered: " + ex.getMessage () );
+            System.out.println("Outside World is not registered: " + ex.getMessage () );
             ex.printStackTrace ();
             System.exit(1);
         } catch (RemoteException ex) {
-            System.out.println("Exception thrown while locating Betting Center: " + ex.getMessage () );
+            System.out.println("Exception thrown while locating Outside World: " + ex.getMessage () );
             ex.printStackTrace ();
             System.exit (1);
         }
@@ -96,11 +96,11 @@ public class MainProgram {
             park = (ParkInterfaces) registry.lookup (Constants.PARK_NAME_ENTRY);
         }
         catch (NotBoundException ex) {
-            System.out.println("Stable is not registered: " + ex.getMessage ());
+            System.out.println("Park is not registered: " + ex.getMessage ());
             ex.printStackTrace ();
             System.exit(1);
         } catch (RemoteException ex) {
-            System.out.println("Exception thrown while locating Stable: " + ex.getMessage () );
+            System.out.println("Exception thrown while locating Park: " + ex.getMessage () );
             ex.printStackTrace ();
             System.exit (1);
         }
@@ -110,11 +110,11 @@ public class MainProgram {
             repairArea = (RepairAreaInterfaces) registry.lookup (Constants.REPAIRAREA_NAME_ENTRY);
         }
         catch (NotBoundException ex) {
-            System.out.println("Stable is not registered: " + ex.getMessage ());
+            System.out.println("Repair Area is not registered: " + ex.getMessage ());
             ex.printStackTrace ();
             System.exit(1);
         } catch (RemoteException ex) {
-            System.out.println("Exception thrown while locating Stable: " + ex.getMessage () );
+            System.out.println("Exception thrown while locating Repair Area: " + ex.getMessage () );
             ex.printStackTrace ();
             System.exit (1);
         }
@@ -124,11 +124,11 @@ public class MainProgram {
             supplierSite = (SupplierSiteInterfaces) registry.lookup (Constants.SUPPLIERSITE_NAME_ENTRY);
         }
         catch (NotBoundException ex) {
-            System.out.println("Stable is not registered: " + ex.getMessage ());
+            System.out.println("Supplier Site is not registered: " + ex.getMessage ());
             ex.printStackTrace ();
             System.exit(1);
         } catch (RemoteException ex) {
-            System.out.println("Exception thrown while locating Stable: " + ex.getMessage () );
+            System.out.println("Exception thrown while locating Supplier Site: " + ex.getMessage () );
             ex.printStackTrace ();
             System.exit (1);
         }
@@ -144,7 +144,7 @@ public class MainProgram {
             loungInt = (LoungeInterfaces) UnicastRemoteObject.exportObject (lounge, Constants.LOUNGE_PORT);
         }
         catch (RemoteException e)
-        { GenericIO.writelnString ("Paddock stub generation exception: " + e.getMessage ());
+        { GenericIO.writelnString ("Lounge stub generation exception: " + e.getMessage ());
           e.printStackTrace ();
           System.exit (1);
         }
@@ -168,16 +168,16 @@ public class MainProgram {
         { registerInt.bind (nameEntryObject, loungInt);
         }
         catch (RemoteException e)
-        { GenericIO.writelnString ("Paddock registration exception: " + e.getMessage ());
+        { GenericIO.writelnString ("Lounge registration exception: " + e.getMessage ());
           e.printStackTrace ();
           System.exit (1);
         }
         catch (AlreadyBoundException e)
-        { GenericIO.writelnString ("Paddock already bound exception: " + e.getMessage ());
+        { GenericIO.writelnString ("Lounge already bound exception: " + e.getMessage ());
           e.printStackTrace ();
           System.exit (1);
         }
-        GenericIO.writelnString ("Paddock object was registered!");
+        GenericIO.writelnString ("Lounge object was registered!");
         
         /* Wait for the service to end */
         while(!serviceEnd){
@@ -186,12 +186,12 @@ public class MainProgram {
                     lounge.wait();
                 }
             } catch (InterruptedException ex) {
-                GenericIO.writelnString("Main thread of paddock was interrupted.");
+                GenericIO.writelnString("Main thread of Lounge was interrupted.");
                 System.exit(1);
             }
         }
         
-        GenericIO.writelnString("Paddock finished execution.");
+        GenericIO.writelnString("Lounge finished execution.");
         
         /* Unregister shared region */
         try
@@ -199,15 +199,15 @@ public class MainProgram {
             registerInt.unbind (nameEntryObject);
         }
         catch (RemoteException e)
-        { GenericIO.writelnString ("Paddock unregistration exception: " + e.getMessage ());
+        { GenericIO.writelnString ("Lounge unregistration exception: " + e.getMessage ());
           e.printStackTrace ();
           System.exit (1);
         } catch (NotBoundException ex) {
-          GenericIO.writelnString ("Paddock unregistration exception: " + ex.getMessage ());
+          GenericIO.writelnString ("Lounge unregistration exception: " + ex.getMessage ());
           ex.printStackTrace ();
           System.exit (1);
         }
-        GenericIO.writelnString ("Paddock object was unregistered!");
+        GenericIO.writelnString ("Lounge object was unregistered!");
         
         /* Unexport shared region */
         try
@@ -215,12 +215,12 @@ public class MainProgram {
             UnicastRemoteObject.unexportObject (lounge, false);
         }
         catch (RemoteException e)
-        { GenericIO.writelnString ("Paddock unexport exception: " + e.getMessage ());
+        { GenericIO.writelnString ("Lounge unexport exception: " + e.getMessage ());
           e.printStackTrace ();
           System.exit (1);
         }
         
-        GenericIO.writelnString ("Paddock object was unexported successfully!");
+        GenericIO.writelnString ("Lounge object was unexported successfully!");
         
     }
    
