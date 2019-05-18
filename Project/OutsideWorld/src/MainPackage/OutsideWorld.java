@@ -49,6 +49,7 @@ public class OutsideWorld implements OutsideWorldInterfaces {
      * @return true or false, if he wants or not
      */
     
+    @Override
     public synchronized boolean decideOnRepair(int customer, String customerState) throws RemoteException {
         logger.setCustomerState(customer, customerState);
         GenericIO.writelnString(" Customer "+customer+" decideOnRepair ");   
@@ -64,6 +65,7 @@ public class OutsideWorld implements OutsideWorldInterfaces {
      * @param customerState the customer state
      */
     
+    @Override
     public synchronized void backToWorkByBus(int customer, String customerState) throws RemoteException{
         logger.setCustomerState(customer, customerState);    
         notifyAll();     
@@ -88,6 +90,7 @@ public class OutsideWorld implements OutsideWorldInterfaces {
      * @param info the information of the customer
      * @param customerState the customer state
      */
+    @Override
     public synchronized void backToWorkByCar(String info, String customerState) throws RemoteException{
         
         notifyAll();
@@ -113,6 +116,7 @@ public class OutsideWorld implements OutsideWorldInterfaces {
      * @param info the information of the customer
      * @param managerState the manager state
      */
+    @Override
     public synchronized void phoneCustomer(String info, String managerState) throws RemoteException {
         logger.setManagerState(managerState);
         carRepaired [Integer.parseInt(info.split(",")[0])] = true;  
@@ -123,6 +127,7 @@ public class OutsideWorld implements OutsideWorldInterfaces {
     /**
      * Terminate the outsideWorld service.
      */
+    @Override
     public synchronized void serviceEnd() throws RemoteException{
         MainProgram.serviceEnd = true;
         notifyAll();

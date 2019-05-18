@@ -108,6 +108,7 @@ public class Lounge implements LoungeInterfaces {
       * @return true, when the vectores are not empty
      * @throws java.rmi.RemoteException
       */
+    @Override
     public synchronized boolean getNextTask(String managerState) throws RemoteException {
         logger.setManagerState(managerState);
         GenericIO.writelnString("I'm waiting for a new task");
@@ -135,6 +136,7 @@ public class Lounge implements LoungeInterfaces {
      * @return 0,1 or 2, which means the service number
      * @throws java.rmi.RemoteException
      */
+    @Override
     public synchronized String appraiseSit() throws RemoteException {
         assert(!atending_customer.isEmpty() || !alerting_customer.isEmpty() || !getting_new_parts.isEmpty());
         logger.setValueQueueIn(atending_customer.size());
@@ -153,6 +155,7 @@ public class Lounge implements LoungeInterfaces {
      * @param customerState customer's state
      * @throws java.rmi.RemoteException
      */
+    @Override
     public synchronized void queueIn(String info, String customerState) throws RemoteException{
         int customer = Integer.parseInt(info.split(",")[0]);
         logger.setCustomerState(customer, customerState);
@@ -170,6 +173,7 @@ public class Lounge implements LoungeInterfaces {
      * @param customerState customer's state
      * @throws java.rmi.RemoteException
      */
+    @Override
     public synchronized void collectKey(int customer, String customerState) throws RemoteException {
         logger.setCustomerState(customer, customerState);
         while(clients [customer] == false){
@@ -191,6 +195,7 @@ public class Lounge implements LoungeInterfaces {
      * @param info customer's info
      * @throws java.rmi.RemoteException
      */
+    @Override
     public synchronized void handCarKey(String info) throws RemoteException{
         int id = Integer.parseInt(info.split(",")[0]);
         while(clients [id] == true){
@@ -215,6 +220,7 @@ public class Lounge implements LoungeInterfaces {
      * @param managerState manager's state
      * @throws java.rmi.RemoteException
      */
+    @Override
     public synchronized void talkToCustomer(String customer, String managerState) throws RemoteException {
 
         /**
@@ -245,6 +251,7 @@ public class Lounge implements LoungeInterfaces {
      * @param customer customer's id
      * @throws java.rmi.RemoteException
      */
+    @Override
     public synchronized void talkWithManager(int customer) throws RemoteException {
 
         /**
@@ -274,6 +281,7 @@ public class Lounge implements LoungeInterfaces {
      * @param info customer's info
      * @throws java.rmi.RemoteException
      */
+    @Override
     public synchronized void receivePayment(String info) throws RemoteException {
         int id = Integer.parseInt(info.split(",")[0]);
         while(clients [id] == true){
@@ -297,6 +305,7 @@ public class Lounge implements LoungeInterfaces {
      * @param customer customer's id
      * @throws java.rmi.RemoteException
      */
+    @Override
     public synchronized void payForTheService(int customer) throws RemoteException {
         while(clients [customer] == false){
             try {
@@ -320,6 +329,7 @@ public class Lounge implements LoungeInterfaces {
      * @param mechanicState mechanic's state
      * @throws java.rmi.RemoteException
      */
+    @Override
     public synchronized void letManagerKnow(String peca, int mechanic, String mechanicState) throws RemoteException {
         logger.setMechanicState(mechanic, mechanicState);
         if (!getting_new_parts.contains(peca))
@@ -339,6 +349,7 @@ public class Lounge implements LoungeInterfaces {
      * @param mechanicState mechanic's state
      * @throws java.rmi.RemoteException
      */
+    @Override
     public synchronized void repairConcluded(int currentCar, int mechanic, String mechanicState) throws RemoteException {
 
         logger.setMechanicState(mechanic, mechanicState);
@@ -353,6 +364,7 @@ public class Lounge implements LoungeInterfaces {
      * @return if the piece has already been ordered or not
      * @throws java.rmi.RemoteException
      */
+    @Override
     public synchronized boolean checkRequest(String peca) throws RemoteException{
         GenericIO.writelnString(" Mechanic check the piece "+peca);
         logger.setFlagAPieces(getting_new_parts.contains("0") ? "0" : "--");
@@ -366,6 +378,7 @@ public class Lounge implements LoungeInterfaces {
      * If all entities sent a shutdown, send a shutdown to all other shared regions.
      * @throws java.rmi.RemoteException
      */
+    @Override
     public synchronized void serviceEnd() throws RemoteException{
         logger.setValueQueueIn(atending_customer.size());
         logger.setFlagAPieces(getting_new_parts.contains("0") ? "0" : "--");

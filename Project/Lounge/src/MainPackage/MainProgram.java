@@ -15,7 +15,7 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
 /**
- *
+ * @author giselapinto
  * @author danielmartins
  */
 public class MainProgram {

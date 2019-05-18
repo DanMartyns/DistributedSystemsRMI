@@ -14,7 +14,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
 /**
- *
+ * @author giselapinto
  * @author danielmartins
  */
 public class MainProgram {
@@ -53,11 +53,11 @@ public class MainProgram {
             lounge = (CustomerLounge) registry.lookup (Constants.LOUNGE_NAME_ENTRY);
         }
         catch (NotBoundException ex) {
-            System.out.println("Racing Track is not registered: " + ex.getMessage () );
+            System.out.println("Lounge is not registered: " + ex.getMessage () );
             ex.printStackTrace ();
             System.exit(1);
         } catch (RemoteException ex) {
-            System.out.println("Exception thrown while locating Racing Track: " + ex.getMessage () );
+            System.out.println("Exception thrown while locating Lounge: " + ex.getMessage () );
             ex.printStackTrace ();
             System.exit (1);
         }
@@ -67,11 +67,11 @@ public class MainProgram {
             outsideworld = (CustomerOutSideWorld) registry.lookup (Constants.OUTSIDEWORLD_NAME_ENTRY);
         }
         catch (NotBoundException ex) {
-            System.out.println("Betting Center is not registered: " + ex.getMessage () );
+            System.out.println("Outside World is not registered: " + ex.getMessage () );
             ex.printStackTrace ();
             System.exit(1);
         } catch (RemoteException ex) {
-            System.out.println("Exception thrown while locating Betting Center: " + ex.getMessage () );
+            System.out.println("Exception thrown while locating Outside World : " + ex.getMessage () );
             ex.printStackTrace ();
             System.exit (1);
         }
@@ -81,11 +81,11 @@ public class MainProgram {
             park = (CustomerPark) registry.lookup (Constants.PARK_NAME_ENTRY);
         }
         catch (NotBoundException ex) {
-            System.out.println("Stable is not registered: " + ex.getMessage ());
+            System.out.println("Park is not registered: " + ex.getMessage ());
             ex.printStackTrace ();
             System.exit(1);
         } catch (RemoteException ex) {
-            System.out.println("Exception thrown while locating Stable: " + ex.getMessage () );
+            System.out.println("Exception thrown while locating Park: " + ex.getMessage () );
             ex.printStackTrace ();
             System.exit (1);
         }

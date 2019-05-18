@@ -37,7 +37,7 @@ public class MainProgram {
 
         /* look for the remote object by name in the remote host registry */
         String nameEntry = Constants.REGISTRY_NAME_ENTRY;
-        String nameEntryObject = Constants.OUTSIDEWORLD_NAME_ENTRY;
+        String nameEntryObject = Constants.PARK_NAME_ENTRY;
 
         Registry registry = null;
         RegisterInterfaces registerInt = null;
@@ -74,25 +74,26 @@ public class MainProgram {
         }
         
         
-        GenericIO.writelnString ("Starting Outside World...");
+        GenericIO.writelnString ("Starting Park...");
         
         /* Initialize the shared region */
-        OutsideWorld outsideWorld = new OutsideWorld(logger);
-        OutsideWorldInterfaces outsideWorldInt = null;
+        Park park = new Park(logger);
+        ParkInterfaces parkInt = null;
         
         try
         { 
-            outsideWorldInt = (OutsideWorldInterfaces) UnicastRemoteObject.exportObject (outsideWorld, Constants.OUTSIDEWORLD_PORT);
+            parkInt = (ParkInterfaces) UnicastRemoteObject.exportObject (park, Constants.PARK_PORT);
         }
         catch (RemoteException e)
-        { GenericIO.writelnString ("Outside World stub generation exception: " + e.getMessage ());
+        { GenericIO.writelnString ("Park stub generation exception: " + e.getMessage ());
           e.printStackTrace ();
           System.exit (1);
         }
         
         /* register it with the general registry service */
         try
-        { registerInt = (RegisterInterfaces) registry.lookup(nameEntry);
+        { 
+            registerInt = (RegisterInterfaces) registry.lookup(nameEntry);
         }
         catch (RemoteException e)
         { GenericIO.writelnString ("Register lookup exception: " + e.getMessage ());
@@ -106,33 +107,33 @@ public class MainProgram {
         }
 
         try
-        { registerInt.bind (nameEntryObject, outsideWorldInt);
+        { registerInt.bind (nameEntryObject, parkInt);
         }
         catch (RemoteException e)
-        { GenericIO.writelnString ("Outside World registration exception: " + e.getMessage ());
+        { GenericIO.writelnString ("Park registration exception: " + e.getMessage ());
           e.printStackTrace ();
           System.exit (1);
         }
         catch (AlreadyBoundException e)
-        { GenericIO.writelnString ("Outside World already bound exception: " + e.getMessage ());
+        { GenericIO.writelnString ("Park already bound exception: " + e.getMessage ());
           e.printStackTrace ();
           System.exit (1);
         }
-        GenericIO.writelnString ("Outside World object was registered!");
+        GenericIO.writelnString ("Park object was registered!");
         
         /* Wait for the service to end */
         while(!serviceEnd){
             try {
-                synchronized(outsideWorld){
-                    outsideWorld.wait();
+                synchronized(park){
+                    park.wait();
                 }
             } catch (InterruptedException ex) {
-                GenericIO.writelnString("Main thread of Outside World was interrupted.");
+                GenericIO.writelnString("Main thread of Park was interrupted.");
                 System.exit(1);
             }
         }
         
-        GenericIO.writelnString("Outside World finished execution.");
+        GenericIO.writelnString("Park finished execution.");
         
         /* Unregister shared region */
         try
@@ -140,28 +141,28 @@ public class MainProgram {
             registerInt.unbind (nameEntryObject);
         }
         catch (RemoteException e)
-        { GenericIO.writelnString ("Outside World unregistration exception: " + e.getMessage ());
+        { GenericIO.writelnString ("Park unregistration exception: " + e.getMessage ());
           e.printStackTrace ();
           System.exit (1);
         } catch (NotBoundException ex) {
-          GenericIO.writelnString ("Outside World unregistration exception: " + ex.getMessage ());
+          GenericIO.writelnString ("Park unregistration exception: " + ex.getMessage ());
           ex.printStackTrace ();
           System.exit (1);
         }
-        GenericIO.writelnString ("Outside World object was unregistered!");
+        GenericIO.writelnString ("Park object was unregistered!");
         
         /* Unexport shared region */
         try
         { 
-            UnicastRemoteObject.unexportObject (outsideWorld, false);
+            UnicastRemoteObject.unexportObject (park, false);
         }
         catch (RemoteException e)
-        { GenericIO.writelnString ("Outside World unexport exception: " + e.getMessage ());
+        { GenericIO.writelnString ("Park unexport exception: " + e.getMessage ());
           e.printStackTrace ();
           System.exit (1);
         }
         
-        GenericIO.writelnString ("Outside World object was unexported successfully!");
+        GenericIO.writelnString ("Park object was unexported successfully!");
         
     }
    
