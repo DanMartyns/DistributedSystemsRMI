@@ -38,18 +38,20 @@ public class MainProgram {
         /* look for the remote object by name in the remote host registry */
         String nameEntry = Constants.REGISTRY_NAME_ENTRY;
         String nameEntryObject = Constants.LOUNGE_NAME_ENTRY;
+        
+        /* create and install the security manager */
+        if (System.getSecurityManager () == null)
+            System.setSecurityManager (new SecurityManager ());
 
         Registry registry = null;
         RegisterInterfaces registerInt = null;
         GeneralInformationRepoInterfaces logger = null;
-        OutsideWorldInterfaces outsideWorld = null;
         ParkInterfaces park = null;
         RepairAreaInterfaces repairArea = null;
         SupplierSiteInterfaces supplierSite = null;
+        OutsideWorldInterfaces outsideWorld = null;
         
-       /* create and install the security manager */
-        if (System.getSecurityManager () == null)
-            System.setSecurityManager (new SecurityManager ());
+       
         
         try
         {
@@ -77,19 +79,6 @@ public class MainProgram {
             System.exit (1);
         }
         
-        try
-        {
-            outsideWorld = (OutsideWorldInterfaces) registry.lookup (Constants.OUTSIDEWORLD_NAME_ENTRY);
-        }
-        catch (NotBoundException ex) {
-            System.out.println("Outside World is not registered: " + ex.getMessage () );
-            ex.printStackTrace ();
-            System.exit(1);
-        } catch (RemoteException ex) {
-            System.out.println("Exception thrown while locating Outside World: " + ex.getMessage () );
-            ex.printStackTrace ();
-            System.exit (1);
-        }
         
         try
         {
@@ -133,6 +122,20 @@ public class MainProgram {
             System.exit (1);
         }
         
+        try
+        {
+            outsideWorld = (OutsideWorldInterfaces) registry.lookup (Constants.OUTSIDEWORLD_NAME_ENTRY);
+        }
+        catch (NotBoundException ex) {
+            System.out.println("Outside World is not registered: " + ex.getMessage () );
+            ex.printStackTrace ();
+            System.exit(1);
+        } catch (RemoteException ex) {
+            System.out.println("Exception thrown while locating Outside World: " + ex.getMessage () );
+            ex.printStackTrace ();
+            System.exit (1);
+        }
+        
         GenericIO.writelnString ("Starting Lounge...");
         
         /* Initialize the shared region */
@@ -151,7 +154,8 @@ public class MainProgram {
         
         /* register it with the general registry service */
         try
-        { registerInt = (RegisterInterfaces) registry.lookup(nameEntry);
+        { 
+            registerInt = (RegisterInterfaces) registry.lookup(nameEntry);
         }
         catch (RemoteException e)
         { GenericIO.writelnString ("Register lookup exception: " + e.getMessage ());

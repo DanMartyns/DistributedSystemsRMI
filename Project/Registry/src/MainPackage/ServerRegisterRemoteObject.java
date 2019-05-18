@@ -1,10 +1,10 @@
 package MainPackage;
 
-import java.rmi.registry.Registry;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 import genclass.GenericIO;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 import Interfaces.RegisterInterfaces;
 import java.rmi.NotBoundException;
 
@@ -13,15 +13,18 @@ import java.rmi.NotBoundException;
  *  located in the same or other processing nodes in the local registry service.
  *  Communication is based in Java RMI.
  */
-
 public class ServerRegisterRemoteObject
 {
+    
     /**
      * Used to check if the service must terminate.
      */
     public static boolean serviceEnd = false;
     
-
+   /**
+    * Main task.
+    * @param args
+    */
    public static void main(String[] args)
    {
     /* get location of the registry service */
@@ -29,7 +32,6 @@ public class ServerRegisterRemoteObject
      String rmiRegHostName;
      int rmiRegPortNumb;
 
-     
      rmiRegHostName = Constants.REGISTRY_HOST_NAME;
      rmiRegPortNumb = Constants.REGISTRY_PORT;
 
@@ -37,49 +39,41 @@ public class ServerRegisterRemoteObject
 
      if (System.getSecurityManager () == null)
         System.setSecurityManager (new SecurityManager ());
-     
-     GenericIO.writelnString ("Security manager was installed!");
 
     /* instantiate a registration remote object and generate a stub for it */
-
      RegisterRemoteObject regEngine = new RegisterRemoteObject (rmiRegHostName, rmiRegPortNumb);
-     RegisterInterfaces regEngineStub = null;
-     int listeningPort = Constants.SERVER_REGISTRY_PORT;                            
+     RegisterInterfaces registerInt = null;
+     int listeningPort = Constants.SERVER_REGISTRY_PORT;
 
      try
-     { 
-         regEngineStub = (RegisterInterfaces) UnicastRemoteObject.exportObject (regEngine, listeningPort);
+     { registerInt = (RegisterInterfaces) UnicastRemoteObject.exportObject (regEngine, listeningPort);
      }
      catch (RemoteException e)
      { GenericIO.writelnString ("RegisterRemoteObject stub generation exception: " + e.getMessage ());
        System.exit (1);
      }
-     GenericIO.writelnString ("Stub was generated!");
 
     /* register it with the local registry service */
-
      String nameEntry = Constants.REGISTRY_NAME_ENTRY;
      Registry registry = null;
 
      try
-     { 
-         registry = LocateRegistry.getRegistry (rmiRegHostName, rmiRegPortNumb);
+     { registry = LocateRegistry.getRegistry (rmiRegHostName, rmiRegPortNumb);
      }
      catch (RemoteException e)
      { GenericIO.writelnString ("RMI registry creation exception: " + e.getMessage ());
        System.exit (1);
      }
-     GenericIO.writelnString ("RMI registry was created!");
 
      try
-     { registry.rebind (nameEntry, regEngineStub);
+     { registry.rebind (nameEntry, registerInt);
      }
      catch (RemoteException e)
      { GenericIO.writelnString ("RegisterRemoteObject remote exception on registration: " + e.getMessage ());
        System.exit (1);
      }
      GenericIO.writelnString ("RegisterRemoteObject object was registered!");
-        
+     
      /* Wait for the service to end */
         while(!serviceEnd){
             try {
@@ -96,15 +90,13 @@ public class ServerRegisterRemoteObject
         
         /* Unregister shared region */
         try
-        { 
-            registry.unbind (nameEntry);
+        { registry.unbind (nameEntry);
         }
         catch (RemoteException e)
         { GenericIO.writelnString ("RegisterRemoteObject unregistration exception: " + e.getMessage ());
           e.printStackTrace ();
           System.exit (1);
-        } 
-        catch (NotBoundException ex) {
+        } catch (NotBoundException ex) {
           GenericIO.writelnString ("RegisterRemoteObject unregistration exception: " + ex.getMessage ());
           ex.printStackTrace ();
           System.exit (1);

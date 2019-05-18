@@ -31,10 +31,10 @@ public class MainProgram {
         String nameEntry = Constants.REGISTRY_NAME_ENTRY;
         Registry registry = null;
         
-        ManagerLounge lounge = null;
-        ManagerOutsideWorld outsideworld = null;
-        ManagerRepairArea repairArea = null;
-        ManagerSupplierSite suppliersite = null;
+        LoungeInterfaces loungeInt = null;
+        OutsideWorldInterfaces outsideworldInt = null;
+        RepairAreaInterfaces repairAreaInt = null;
+        SupplierSiteInterfaces suppliersiteInt = null;
         try
         {
             registry = LocateRegistry.getRegistry (rmiRegHostName, rmiRegPortNumb);
@@ -49,7 +49,7 @@ public class MainProgram {
                 /* Look for the other entities in the registry */
         try
         {
-            lounge = (ManagerLounge) registry.lookup (Constants.LOUNGE_NAME_ENTRY);
+            loungeInt = (LoungeInterfaces) registry.lookup (Constants.LOUNGE_NAME_ENTRY);
         }
         catch (NotBoundException ex) {
             System.out.println("Lounge is not registered: " + ex.getMessage () );
@@ -63,7 +63,7 @@ public class MainProgram {
 
         try
         {
-            outsideworld = (ManagerOutsideWorld) registry.lookup (Constants.OUTSIDEWORLD_NAME_ENTRY);
+            outsideworldInt = (OutsideWorldInterfaces) registry.lookup (Constants.OUTSIDEWORLD_NAME_ENTRY);
         }
         catch (NotBoundException ex) {
             System.out.println("Outside World is not registered: " + ex.getMessage () );
@@ -77,7 +77,7 @@ public class MainProgram {
         
         try
         {
-            repairArea = (ManagerRepairArea) registry.lookup (Constants.REPAIRAREA_NAME_ENTRY);
+            repairAreaInt = (RepairAreaInterfaces) registry.lookup (Constants.REPAIRAREA_NAME_ENTRY);
         }
         catch (NotBoundException ex) {
             System.out.println("Repair Area is not registered: " + ex.getMessage () );
@@ -91,7 +91,7 @@ public class MainProgram {
         
         try
         {
-            suppliersite = (ManagerSupplierSite) registry.lookup (Constants.SUPPLIERSITE_NAME_ENTRY);
+            suppliersiteInt = (SupplierSiteInterfaces) registry.lookup (Constants.SUPPLIERSITE_NAME_ENTRY);
         }
         catch (NotBoundException ex) {
             System.out.println("Supplier Site is not registered: " + ex.getMessage ());
@@ -108,7 +108,7 @@ public class MainProgram {
         /**
          * Manager lifecycle start.
          */
-        Manager manager = new Manager(0, lounge,  suppliersite, repairArea,outsideworld); 
+        Manager manager = new Manager(0, loungeInt,  suppliersiteInt, repairAreaInt, outsideworldInt); 
         manager.start();
         try {
             manager.join();
@@ -116,6 +116,14 @@ public class MainProgram {
         }
         
         GenericIO.writelnString ("Manager ended lifecycle.");
+        
+        try {
+            loungeInt.serviceEnd();
+        } catch (RemoteException ex) {
+            System.out.println("Exception thrown while calling service end: " + ex.getMessage () );
+            ex.printStackTrace ();
+            System.exit (1);
+        }
     }
     
 }

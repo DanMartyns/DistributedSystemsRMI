@@ -6,9 +6,9 @@
 package MainPackage;
 
 import EntitiesState.CustomerState;
-import Interfaces.CustomerLounge;
-import Interfaces.CustomerOutSideWorld;
-import Interfaces.CustomerPark;
+import Interfaces.LoungeInterfaces;
+import Interfaces.OutsideWorldInterfaces;
+import Interfaces.ParkInterfaces;
 
 import static MainPackage.Constants.NUM_CUSTOMERS;
 import genclass.GenericIO;
@@ -32,17 +32,17 @@ public class Customer extends Thread {
     /**
     * interface Customer Park.
     */
-    private CustomerPark park;
+    private ParkInterfaces park;
     
     /**
      * Instance of the interface from customer Lounge.
      */
-    private CustomerLounge lounge;
+    private LoungeInterfaces lounge;
     
     /**
     * Instance of the interface from customer Outside World.
     */ 
-    private CustomerOutSideWorld outsideWorld;
+    private OutsideWorldInterfaces outsideWorld;
     
   
     /**
@@ -60,7 +60,7 @@ public class Customer extends Thread {
      * @param park instance of the Park
      * @param lounge instance of the lounge
      */     
-    public Customer(int id, CustomerOutSideWorld outsideWorld,int carID, CustomerPark park, CustomerLounge lounge) {
+    public Customer(int id, OutsideWorldInterfaces outsideWorld,int carID, ParkInterfaces park, LoungeInterfaces lounge) {
         /**
          * The client id is a string consisting of
          * id = id.hisCar.currentCar.wantsCarOrNot.paidOrNot

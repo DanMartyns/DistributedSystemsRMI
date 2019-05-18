@@ -32,9 +32,9 @@ public class MainProgram {
         String nameEntry = Constants.REGISTRY_NAME_ENTRY;
         Registry registry = null;
         
-        CustomerLounge lounge = null;
-        CustomerOutSideWorld outsideworld = null;
-        CustomerPark park = null;
+        LoungeInterfaces loungeInt = null;
+        OutsideWorldInterfaces outsideworldInt = null;
+        ParkInterfaces parkInt = null;
        
         try
         {
@@ -50,7 +50,7 @@ public class MainProgram {
                 /* Look for the other entities in the registry */
         try
         {
-            lounge = (CustomerLounge) registry.lookup (Constants.LOUNGE_NAME_ENTRY);
+            loungeInt = (LoungeInterfaces) registry.lookup (Constants.LOUNGE_NAME_ENTRY);
         }
         catch (NotBoundException ex) {
             System.out.println("Lounge is not registered: " + ex.getMessage () );
@@ -64,7 +64,7 @@ public class MainProgram {
         
         try
         {
-            outsideworld = (CustomerOutSideWorld) registry.lookup (Constants.OUTSIDEWORLD_NAME_ENTRY);
+            outsideworldInt = (OutsideWorldInterfaces) registry.lookup (Constants.OUTSIDEWORLD_NAME_ENTRY);
         }
         catch (NotBoundException ex) {
             System.out.println("Outside World is not registered: " + ex.getMessage () );
@@ -78,7 +78,7 @@ public class MainProgram {
         
         try
         {
-            park = (CustomerPark) registry.lookup (Constants.PARK_NAME_ENTRY);
+            parkInt = (ParkInterfaces) registry.lookup (Constants.PARK_NAME_ENTRY);
         }
         catch (NotBoundException ex) {
             System.out.println("Park is not registered: " + ex.getMessage ());
@@ -99,7 +99,7 @@ public class MainProgram {
  
 
         for(int i = 0; i<NUM_CUSTOMERS; i++){
-            customer[i] = new Customer(i, outsideworld, i,  park,  lounge);
+            customer[i] = new Customer(i, outsideworldInt, i,  parkInt,  loungeInt);
             customer[i].start();
         }
         for (int i = 0; i<NUM_CUSTOMERS; i++) {
@@ -109,9 +109,16 @@ public class MainProgram {
             catch(InterruptedException e){
                 GenericIO.writelnString("Customer was interrupted - "+e);
             }
+            GenericIO.writelnString("Customer: "+i+" ended lifecycle.");
+
         }
         
-        GenericIO.writelnString ("Customer ended lifecycle.");
+        try {
+            loungeInt.serviceEnd();
+        } catch (RemoteException ex) {
+            System.out.println("Exception thrown while calling service end: " + ex.getMessage () );
+            ex.printStackTrace ();
+            System.exit (1);
+        }  
     }
-   
 }

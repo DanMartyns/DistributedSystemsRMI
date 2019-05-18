@@ -1,9 +1,9 @@
 package MainPackage;
 
 import EntitiesState.MechanicState;
-import Interfaces.MechanicsLounge;
-import Interfaces.MechanicsPark;
-import Interfaces.MechanicsRepairArea;
+import Interfaces.LoungeInterfaces;
+import Interfaces.ParkInterfaces;
+import Interfaces.RepairAreaInterfaces;
 
 import static MainPackage.Constants.TYPE_PARTS;
 import genclass.GenericIO;
@@ -41,17 +41,17 @@ public class Mechanic extends Thread {
     /**
      * Instance of the mechanics interface Repair Area.
      */    
-    private MechanicsRepairArea repairArea;
+    private RepairAreaInterfaces repairArea;
     
     /**
      * Instance of the mechanics interface lounge.
      */
-    private MechanicsLounge lounge;
+    private LoungeInterfaces lounge;
 
     /**
      * Instance of the mechanics interface park.
      */    
-    private MechanicsPark park;
+    private ParkInterfaces park;
     
     /**
      * Mechanic constructor
@@ -61,7 +61,7 @@ public class Mechanic extends Thread {
      * @param repairArea instance of the repair area
      * @param park instance of the park
      */ 
-    public Mechanic(int id, MechanicsLounge lounge, MechanicsRepairArea repairArea, MechanicsPark park) {
+    public Mechanic(int id, LoungeInterfaces lounge, RepairAreaInterfaces repairArea, ParkInterfaces park) {
         this.id = id;
         this.lounge = lounge;
         this.repairArea = repairArea;

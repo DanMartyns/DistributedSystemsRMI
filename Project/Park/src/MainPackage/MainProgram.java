@@ -38,14 +38,18 @@ public class MainProgram {
         /* look for the remote object by name in the remote host registry */
         String nameEntry = Constants.REGISTRY_NAME_ENTRY;
         String nameEntryObject = Constants.PARK_NAME_ENTRY;
-
+        
+        
+        /* create and install the security manager */
+        if (System.getSecurityManager () == null)
+            System.setSecurityManager (new SecurityManager ());
+        
+        
         Registry registry = null;
         RegisterInterfaces registerInt = null;
         GeneralInformationRepoInterfaces logger = null;
         
-       /* create and install the security manager */
-        if (System.getSecurityManager () == null)
-            System.setSecurityManager (new SecurityManager ());
+       
         
         try
         {

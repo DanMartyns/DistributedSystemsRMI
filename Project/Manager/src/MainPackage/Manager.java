@@ -5,10 +5,10 @@
  */
 package MainPackage;
 
-import Interfaces.ManagerLounge;
-import Interfaces.ManagerOutsideWorld;
-import Interfaces.ManagerRepairArea;
-import Interfaces.ManagerSupplierSite;
+import Interfaces.LoungeInterfaces;
+import Interfaces.OutsideWorldInterfaces;
+import Interfaces.SupplierSiteInterfaces;
+import Interfaces.RepairAreaInterfaces;
 
 import static MainPackage.Constants.ALERTING_CUSTOMER;
 import static MainPackage.Constants.ATENDING_CUSTOMER;
@@ -31,23 +31,23 @@ public class Manager extends Thread {
     /**
      * Instance of the manager interface Lounge.
      */
-    private ManagerLounge lounge;
+    private LoungeInterfaces lounge;
     
     /**
      * Instance of the manager interface Supplier Site.
      */    
-    private ManagerSupplierSite supplierSite;
+    private SupplierSiteInterfaces supplierSite;
     
     /**
      * Instance of the manager interface Repair Area.
      */
-    private ManagerRepairArea repairArea;
+    private RepairAreaInterfaces repairArea;
     
     
     /**
      * Instance of the manager interface outside world
      */
-    private ManagerOutsideWorld outsideWorld;
+    private OutsideWorldInterfaces outsideWorld;
     
     /**
      * Give the number of cars to repair
@@ -64,7 +64,7 @@ public class Manager extends Thread {
      * @param outsideWorld instance of the outside world
      */
     
-    public Manager(int id, ManagerLounge lounge, ManagerSupplierSite supplierSite, ManagerRepairArea repairArea, ManagerOutsideWorld outsideWorld) {
+    public Manager(int id, LoungeInterfaces lounge, SupplierSiteInterfaces supplierSite, RepairAreaInterfaces repairArea, OutsideWorldInterfaces outsideWorld) {
         this.id = id;
         this.lounge = lounge;
         this.supplierSite = supplierSite;

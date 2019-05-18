@@ -32,9 +32,9 @@ public class MainProgram {
         String nameEntry = Constants.REGISTRY_NAME_ENTRY;
         Registry registry = null;
         
-        MechanicsLounge lounge = null;
-        MechanicsPark park = null;
-        MechanicsRepairArea repairArea = null;
+        LoungeInterfaces loungeInt = null;
+        ParkInterfaces parkInt = null;
+        RepairAreaInterfaces repairAreaInt = null;
        
         try
         {
@@ -50,7 +50,7 @@ public class MainProgram {
                 /* Look for the other entities in the registry */
         try
         {
-            lounge = (MechanicsLounge) registry.lookup (Constants.LOUNGE_NAME_ENTRY);
+            loungeInt = (LoungeInterfaces) registry.lookup (Constants.LOUNGE_NAME_ENTRY);
         }
         catch (NotBoundException ex) {
             System.out.println("Lounge is not registered: " + ex.getMessage () );
@@ -64,7 +64,7 @@ public class MainProgram {
         
         try
         {
-            park = (MechanicsPark) registry.lookup (Constants.PARK_NAME_ENTRY);
+            parkInt = (ParkInterfaces) registry.lookup (Constants.PARK_NAME_ENTRY);
         }
         catch (NotBoundException ex) {
             System.out.println("Park is not registered: " + ex.getMessage () );
@@ -78,7 +78,7 @@ public class MainProgram {
         
         try
         {
-            repairArea = (MechanicsRepairArea) registry.lookup (Constants.REPAIRAREA_NAME_ENTRY);
+            repairAreaInt = (RepairAreaInterfaces) registry.lookup (Constants.REPAIRAREA_NAME_ENTRY);
         }
         catch (NotBoundException ex) {
             System.out.println("Repair Area is not registered: " + ex.getMessage ());
@@ -99,7 +99,7 @@ public class MainProgram {
  
 
         for(int i = 0; i<NUM_MECHANICS; i++){
-            mechanic[i] = new Mechanic(i, lounge, repairArea,  park);
+            mechanic[i] = new Mechanic(i, loungeInt, repairAreaInt,  parkInt);
             mechanic[i].start();
         }
         for (int i = 0; i<NUM_MECHANICS; i++) {
@@ -109,9 +109,17 @@ public class MainProgram {
             catch(InterruptedException e){
                 GenericIO.writelnString("Mechanic was interrupted - "+e);
             }
+            
+            GenericIO.writelnString ("Mechanic: "+i+" ended lifecycle.");
+
         }
         
-        GenericIO.writelnString ("Mechanic ended lifecycle.");
-    }
-   
+        try {
+            loungeInt.serviceEnd();
+        } catch (RemoteException ex) {
+            System.out.println("Exception thrown while calling service end: " + ex.getMessage () );
+            ex.printStackTrace ();
+            System.exit (1);
+        }
+    }  
 }
