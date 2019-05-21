@@ -56,7 +56,7 @@ cp Lounge/src/MainPackage/*.class Lounge/src/dir_lounge/MainPackage/
 echo -e "\n${bold}->${normal} A compilar Repair Area"
 javac RepairArea/src/Interfaces/*.java RepairArea/src/MainPackage/*.java
 cp RepairArea/src/Interfaces/*.class RepairArea/src/dir_repairArea/Interfaces/
-mv RepairArea/src/MainPackage/*.class RepairArea/src/dir_repairArea/MainPackage/
+cp RepairArea/src/MainPackage/*.class RepairArea/src/dir_repairArea/MainPackage/
 
 
 echo -e "\n${bold}->${normal} A compilar Outside World"
