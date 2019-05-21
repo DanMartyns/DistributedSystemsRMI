@@ -9,10 +9,10 @@ export SSHPASS='enterro2019'
 
 ###
 
-echo -e "\n${bold}->${normal} A eliminar Logger da máquina ${bold}1${normal}"
+echo -e "\n${bold}->${normal} A eliminar Registry e Logger da máquina ${bold}1${normal}"
 sshpass -e ssh -t -t -o StrictHostKeyChecking=no sd0401@l040101-ws01.ua.pt << EOF
 	rm -rf Registry
-	rm -rf Logger
+	rm -rf GeneralInformationRepo
 	cd Public
 	rm -rf dir_registry
 	rm -rf dir_logger
