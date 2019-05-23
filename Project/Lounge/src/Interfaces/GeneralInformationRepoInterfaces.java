@@ -176,21 +176,21 @@ public interface GeneralInformationRepoInterfaces extends Remote{
      * @param pieces0Manager A-pieces returned by the manager
      * @throws java.rmi.RemoteException
      */
-    public void setPieces0Manager(int pieces0Manager) throws RemoteException;
+    //public void setPieces0Manager(int pieces0Manager) throws RemoteException;
 
     /**
      *number of parts of type 1 which have been purchased so far by the manager
      * @param pieces1Manager B-pieces returned by the manager
      * @throws java.rmi.RemoteException
      */
-    public void setPieces1Manager(int pieces1Manager) throws RemoteException;
+    //public void setPieces1Manager(int pieces1Manager) throws RemoteException;
 
     /**
      * number of parts of type 2 which have been purchased so far by the manager
      * @param pieces2Manager C-pieces returned by the manager
      * @throws java.rmi.RemoteException
      */
-    public void setPieces2Manager(int pieces2Manager) throws RemoteException;
+    //public void setPieces2Manager(int pieces2Manager) throws RemoteException;
 
     /**
      * Terminate the logger service.

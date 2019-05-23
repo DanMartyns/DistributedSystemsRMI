@@ -7,6 +7,7 @@ package MainPackage;
 
 
 import Interfaces.GeneralInformationRepoInterfaces;
+import Interfaces.ILounge;
 import Interfaces.LoungeInterfaces;
 import Interfaces.OutsideWorldInterfaces;
 import Interfaces.ParkInterfaces;
@@ -27,7 +28,7 @@ import java.rmi.RemoteException;
  * @author danielmartins
  * @author giselapinto
  */
-public class Lounge implements LoungeInterfaces {
+public class Lounge implements ILounge {
 
     /**
      * Logger class for debugging.

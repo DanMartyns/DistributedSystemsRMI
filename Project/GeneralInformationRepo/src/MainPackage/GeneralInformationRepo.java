@@ -14,6 +14,7 @@ import genclass.GenericIO;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.rmi.RemoteException;
 
 
 /**
@@ -74,7 +75,7 @@ public class GeneralInformationRepo implements GeneralInformationRepoInterfaces{
      * @param fileName name of the logger file
      */
    
-    public GeneralInformationRepo(String fileName) {
+    public GeneralInformationRepo(String fileName) throws RemoteException {
         this.fileName = fileName;
         
         for(int i = 0; i<customerState.length; i++){
@@ -121,7 +122,7 @@ public class GeneralInformationRepo implements GeneralInformationRepoInterfaces{
     /**
      * This function initiate de header log from the logger file, without deleting anything important
      */
-    public synchronized void initStateLog(){
+    public synchronized void initStateLog() throws RemoteException{
         
         try {
             FileWriter fw = new FileWriter(this.fileName);
@@ -155,7 +156,7 @@ public class GeneralInformationRepo implements GeneralInformationRepoInterfaces{
     /**
      * print all the relevante information from logger file, States, and all updateVariables
      */
-    public synchronized void printHeaderLog(){
+    public synchronized void printHeaderLog() throws RemoteException{
         try{
             FileWriter fw = new FileWriter(this.fileName, true);
             BufferedWriter bw = new BufferedWriter(fw);
@@ -192,7 +193,7 @@ public class GeneralInformationRepo implements GeneralInformationRepoInterfaces{
      * Get the state from manager
      * @param manager_state the state of the manager
      */
-    public synchronized void setManagerState(String manager_state) {
+    public synchronized void setManagerState(String manager_state) throws RemoteException {
         this.managerState = manager_state;
         printHeaderLog();
     }
@@ -202,7 +203,7 @@ public class GeneralInformationRepo implements GeneralInformationRepoInterfaces{
      * @param id from customer
      * @param customerState state of customers
      */
-    public synchronized void setCustomerState(int id, String customerState) {
+    public synchronized void setCustomerState(int id, String customerState) throws RemoteException {
         this.customerState[id] = customerState;
         printHeaderLog();
     }
@@ -212,7 +213,7 @@ public class GeneralInformationRepo implements GeneralInformationRepoInterfaces{
      * @param id of mechanic
      * @param mechanicState state
      */
-    public synchronized void setMechanicState(int id, String mechanicState) {
+    public synchronized void setMechanicState(int id, String mechanicState) throws RemoteException {
         this.mechanicState[id] = mechanicState;
         printHeaderLog();
     }
@@ -225,7 +226,7 @@ public class GeneralInformationRepo implements GeneralInformationRepoInterfaces{
      * @param id customer Id
      * @param ownCar it own car or replecment car
      */
-    public synchronized void setOwnCar(int id, String ownCar) {
+    public synchronized void setOwnCar(int id, String ownCar) throws RemoteException {
         String[] inf = ownCar.split(",");
     
         this.ownCar[id] = inf[1].equals(inf[2]) ? String.format("%02d",Integer.parseInt(inf[2]))
@@ -242,7 +243,7 @@ public class GeneralInformationRepo implements GeneralInformationRepoInterfaces{
      * @param id customer id
      * @param replecementCar if requeires replecment car or not
      */
-    public synchronized void setReplecementCar(int id, String replecementCar) {
+    public synchronized void setReplecementCar(int id, String replecementCar) throws RemoteException{
         String[] inf = replecementCar.split(",");
         this.replecementCar[id] = inf[3].equals("1") ? "T" : "F";
         
@@ -255,7 +256,7 @@ public class GeneralInformationRepo implements GeneralInformationRepoInterfaces{
      * @param id customer id
      * @param repairedCar if car is repaired or not
      */
-    public synchronized void setAlreadyRepaired(int id, int repairedCar[]) {
+    public synchronized void setAlreadyRepaired(int id, int repairedCar[]) throws RemoteException {
         this.repairedCar[id] = repairedCar[id]==1 ? "T" : "F";
         printHeaderLog();
 
@@ -265,7 +266,7 @@ public class GeneralInformationRepo implements GeneralInformationRepoInterfaces{
      * number of customers presently queueing to talk to the manager
      * @param valueQueueIn value of customer on queue
      */
-    public synchronized void setValueQueueIn(int valueQueueIn) {
+    public synchronized void setValueQueueIn(int valueQueueIn) throws RemoteException {
 
         this.valueQueueIn = String.format("%02d",valueQueueIn);
         printHeaderLog();
@@ -275,7 +276,7 @@ public class GeneralInformationRepo implements GeneralInformationRepoInterfaces{
      *number of customer waiting for a replacement vehicle
      * @param numberWaitingReplece number of replacement car
      */
-    public synchronized void setNumberWaitingReplece(int numberWaitingReplece) {
+    public synchronized void setNumberWaitingReplece(int numberWaitingReplece) throws RemoteException {
 
         this.numberWaitingReplece = String.format("%02d",numberWaitingReplece);
         printHeaderLog();
@@ -286,7 +287,7 @@ public class GeneralInformationRepo implements GeneralInformationRepoInterfaces{
      * number of cars that have already been repaired
      * @param numberRepair number of cars repaired
      */
-    public synchronized void setNumberRepair(int numberRepair) {
+    public synchronized void setNumberRepair(int numberRepair) throws RemoteException {
 
         this.numberRepair = String.format("%02d",numberRepair);
         printHeaderLog();
@@ -296,7 +297,7 @@ public class GeneralInformationRepo implements GeneralInformationRepoInterfaces{
      * number of customer vehicles presently parked at the repair shop park
      * @param numberParkCars number of cars in the park
      */
-    public synchronized void setNumberParkCars(int numberParkCars) {
+    public synchronized void setNumberParkCars(int numberParkCars) throws RemoteException {
         this.numberParkCars = String.format("%02d",numberParkCars);
         printHeaderLog();
     }
@@ -305,7 +306,7 @@ public class GeneralInformationRepo implements GeneralInformationRepoInterfaces{
      * number of replacement vehicles presently parked at the repair shop park
      * @param numberReplacementPark number of replacement cars in the park
      */
-    public synchronized void setNumberReplacementPark(int numberReplacementPark) {
+    public synchronized void setNumberReplacementPark(int numberReplacementPark) throws RemoteException {
       
         this.numberReplacementPark = String.format("%02d",numberReplacementPark);    
         printHeaderLog();
@@ -315,7 +316,7 @@ public class GeneralInformationRepo implements GeneralInformationRepoInterfaces{
      * number of service requests made by the manager to the repair area
      * @param numberServiceRequest number of registed services by manager
      */
-    public synchronized void setNumberServiceRequest(int numberServiceRequest) {
+    public synchronized void setNumberServiceRequest(int numberServiceRequest) throws RemoteException {
         
         this.numberServiceRequest = String.format("%02d",numberServiceRequest);
         printHeaderLog();
@@ -325,7 +326,7 @@ public class GeneralInformationRepo implements GeneralInformationRepoInterfaces{
      * number of parts of type 0 presently in storage at the repair area
      * @param pieces0Stored number of A-pieces in the repair area
      */
-    public synchronized void setPieces0Stored(int pieces0Stored) {
+    public synchronized void setPieces0Stored(int pieces0Stored) throws RemoteException {
         this.pieces0Stored = String.format("%02d",pieces0Stored);
         printHeaderLog();
     }
@@ -334,7 +335,7 @@ public class GeneralInformationRepo implements GeneralInformationRepoInterfaces{
      * number of parts of type 1 presently in storage at the repair area
      * @param pieces1Stored number of B-pieces in the repair area
      */
-    public synchronized void setPieces1Stored(int pieces1Stored) {
+    public synchronized void setPieces1Stored(int pieces1Stored) throws RemoteException {
         this.pieces1Stored = String.format("%02d",pieces1Stored);
         printHeaderLog();
     }
@@ -343,7 +344,7 @@ public class GeneralInformationRepo implements GeneralInformationRepoInterfaces{
      * number of parts of type 2 presently in storage at the repair area
      * @param pieces2Stored number of C-pieces in the repair area
      */
-    public synchronized void setPieces2Stored(int pieces2Stored) {
+    public synchronized void setPieces2Stored(int pieces2Stored) throws RemoteException {
         this.pieces2Stored = String.format("%02d",pieces2Stored);
         printHeaderLog();
     }
@@ -353,7 +354,7 @@ public class GeneralInformationRepo implements GeneralInformationRepoInterfaces{
      * @param piece piece's type
      * @param quantityOfCustomersWaiting quantity on waiting
      */
-    public synchronized void setPiecesAvabal(String piece, int quantityOfCustomersWaiting) {
+    public synchronized void setPiecesAvabal(String piece, int quantityOfCustomersWaiting) throws RemoteException {
         if (piece.equals("0")) this.piecesAAvabal = String.format("%02d",quantityOfCustomersWaiting) ;
         if (piece.equals("1")) this.piecesBAvabal = String.format("%02d",quantityOfCustomersWaiting) ;
         if (piece.equals("2")) this.piecesCAvabal = String.format("%02d",quantityOfCustomersWaiting) ;
@@ -364,7 +365,7 @@ public class GeneralInformationRepo implements GeneralInformationRepoInterfaces{
      * flag signaling the manager has been adviced that part # is missing at the repair area: T or F
      * @param flagPieces A-piece type
      */
-    public synchronized void setFlagAPieces(String flagPieces) {
+    public synchronized void setFlagAPieces(String flagPieces) throws RemoteException{
         this.flagAPieces = flagPieces.equals("0") ? "T" : "F";
         printHeaderLog();
     }
@@ -373,7 +374,7 @@ public class GeneralInformationRepo implements GeneralInformationRepoInterfaces{
      * flag signaling the manager has been adviced that part # is missing at the repair area: T or F
      * @param flagPieces B-piece type 
      */
-    public synchronized void setFlagBPieces(String flagPieces) {
+    public synchronized void setFlagBPieces(String flagPieces) throws RemoteException{
         this.flagBPieces = flagPieces.equals("1") ? "T" : "F";
         printHeaderLog();
     }
@@ -382,7 +383,7 @@ public class GeneralInformationRepo implements GeneralInformationRepoInterfaces{
      * flag signaling the manager has been adviced that part # is missing at the repair area: T or F
      * @param flagPieces C-piece type
      */
-    public synchronized void setFlagCPieces(String flagPieces) {
+    public synchronized void setFlagCPieces(String flagPieces) throws RemoteException{
         this.flagCPieces = flagPieces.equals("2") ? "T" : "F";
         printHeaderLog();
     }
@@ -391,7 +392,7 @@ public class GeneralInformationRepo implements GeneralInformationRepoInterfaces{
      * number of parts of type 0 which have been purchased so far by the manager
      * @param pieces0Manager A-pieces returned by the manager
      */
-    public synchronized void setPieces0Manager(int pieces0Manager) {
+    public synchronized void setPieces0Manager(int pieces0Manager) throws RemoteException {
         this.pieces0Manager = String.format("%02d",pieces0Manager) ;
         printHeaderLog();
     }
@@ -400,7 +401,7 @@ public class GeneralInformationRepo implements GeneralInformationRepoInterfaces{
      *number of parts of type 1 which have been purchased so far by the manager
      * @param pieces1Manager B-pieces returned by the manager
      */
-    public synchronized void setPieces1Manager(int pieces1Manager) {
+    public synchronized void setPieces1Manager(int pieces1Manager) throws RemoteException {
         this.pieces1Manager = String.format("%02d",pieces1Manager) ;        
         printHeaderLog();
     }
@@ -409,7 +410,7 @@ public class GeneralInformationRepo implements GeneralInformationRepoInterfaces{
      * number of parts of type 2 which have been purchased so far by the manager
      * @param pieces2Manager C-pieces returned by the manager
      */
-    public synchronized void setPieces2Manager(int pieces2Manager) {
+    public synchronized void setPieces2Manager(int pieces2Manager) throws RemoteException {
         this.pieces2Manager = String.format("%02d",pieces2Manager) ;
         printHeaderLog();
     }
@@ -417,7 +418,7 @@ public class GeneralInformationRepo implements GeneralInformationRepoInterfaces{
     /**
      * Terminate the logger service.
      */
-    public synchronized void serviceEnd(){
+    public synchronized void serviceEnd() throws RemoteException{
         MainProgram.serviceEnd = true;
     }    
 }
