@@ -44,18 +44,5 @@ public interface OutsideWorldInterfaces extends Remote{
      */
     public void backToWorkByCar(String info, String customerState)  throws RemoteException;
     
-    /**
-     * Synchronization point.
-     * Notifies customers that your car is repaired.
-     * @param info the information of the customer
-     * @param managerState the manager state
-     * @throws java.rmi.RemoteException
-     */
-    public void phoneCustomer(String info, String managerState)  throws RemoteException;
-    
-    /**
-     * Terminate the outsideWorld service.
-     * @throws java.rmi.RemoteException
-     */
-    public void serviceEnd() throws RemoteException;
+
 }

@@ -22,14 +22,7 @@ public interface RepairAreaInterfaces extends Remote {
      */
     public String readThePaper(int mechanic, String mechanicState) throws RemoteException;
 
-    /**
-     * The manager records the repair of a car.
-     * @param info the information about customer
-     * @param managerState the state of the manager
-     * @throws java.rmi.RemoteException
-     */
-    public void registerService(String info, String managerState) throws RemoteException;
-
+    
     /**
      * In terms of simulation, indicates the service to be done
      * Transition state
@@ -75,24 +68,8 @@ public interface RepairAreaInterfaces extends Remote {
     * @throws java.rmi.RemoteException
     **/
     public void fixIt() throws RemoteException;
-
-    /**
-     * Function called by the manager to replace parts, according to a part and quantity.
-     * @param peca piece's type
-     * @param quantidade total number of pieces
-     * @param managerState the state of the manager
-     * @throws java.rmi.RemoteException
-     */
-    public void storePart(String peca, int quantidade, String managerState) throws RemoteException;
+ 
     
-    
-    /**
-     * Fuction to shutdown the repair area
-     * @param managerState the manager state
-     * @throws java.rmi.RemoteException
-     */
-    public void shutdownNow(String managerState) throws RemoteException;
-
     /**
      * Terminate the outsideWorld service.
      * @throws java.rmi.RemoteException

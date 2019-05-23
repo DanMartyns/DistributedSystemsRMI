@@ -30,7 +30,7 @@ public class MainProgram {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws RemoteException {
         
         /* get location of the generic registry service */
         String rmiRegHostName = Constants.REGISTRY_HOST_NAME;
@@ -65,6 +65,9 @@ public class MainProgram {
         /* Initialize the shared region */
         GeneralInformationRepo logger = new GeneralInformationRepo(FILE_NAME);
         GeneralInformationRepoInterfaces loggerInt = null;
+        
+        logger.initStateLog();
+        logger.printHeaderLog();  
         
         try
         { 

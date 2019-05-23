@@ -47,30 +47,4 @@ public interface ParkInterfaces extends Remote {
      */
     public void collectCar( String info , String customerState ) throws RemoteException;
     
-    /**
-     * To signal the return of the vehicle to the parking lot, the index of the position
-     * of the array corresponds to the id of the car, and the value of that position is set to 1.
-     * @param car customer's car id
-     * @throws java.rmi.RemoteException
-     */
-    public void returnVehicle(int car) throws RemoteException;
-    /**
-     * To signal the output of the parking vehicle, that vehicle is removed from the array of cars
-     * @param car customer's car id
-     * @throws java.rmi.RemoteException
-     */
-    public void getVehicle(int car) throws RemoteException;
-
-    /**
-     * To signal the block of the parking vehicle, that vehicle is added to array of cars
-     * @param car customer's car id
-     * @throws java.rmi.RemoteException
-     */
-    public void blockVehicle(int car) throws RemoteException;
-
-    /**
-     * Terminate the park service.
-     * @throws java.rmi.RemoteException
-     */
-    public void serviceEnd() throws RemoteException;
 }
