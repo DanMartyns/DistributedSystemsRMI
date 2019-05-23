@@ -6,7 +6,7 @@
 package MainPackage;
 
 
-import Interfaces.GeneralInformationRepoInterfaces;
+import Interfaces.IGeneral;
 import MainPackage.Constants;
 import static MainPackage.Constants.NUM_CUSTOMERS;
 import static MainPackage.Constants.NUM_MECHANICS;
@@ -22,7 +22,7 @@ import java.rmi.RemoteException;
  * @author danielmartins
  * @author giselapinto
  */
-public class GeneralInformationRepo implements GeneralInformationRepoInterfaces{
+public class GeneralInformationRepo implements IGeneral{
     
     private String fileName;
        

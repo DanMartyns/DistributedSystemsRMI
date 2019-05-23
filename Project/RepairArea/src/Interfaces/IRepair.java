@@ -5,11 +5,10 @@
  */
 package Interfaces;
 
-
 /**
  * @author danielmartins
  * @author giselapinto
  */
-public interface ILounge extends LoungeInterfaces {
+public interface IRepair extends RepairAreaInterfaces {
     
 }

@@ -6,7 +6,7 @@
 package MainPackage;
 
 import Interfaces.GeneralInformationRepoInterfaces;
-import Interfaces.ParkInterfaces;
+import Interfaces.IPark;
 import static MainPackage.Constants.NUM_CUSTOMERS;
 import genclass.GenericIO;
 import java.rmi.RemoteException;
@@ -21,7 +21,7 @@ import java.util.Queue;
  * @author danielmartins
  * @author giselapinto
  */
-public class Park implements ParkInterfaces {
+public class Park implements IPark {
 
     /**
      * Logger class for debugging.

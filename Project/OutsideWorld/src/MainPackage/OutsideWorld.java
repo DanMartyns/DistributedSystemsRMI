@@ -6,7 +6,7 @@
 package MainPackage;
 
 import Interfaces.GeneralInformationRepoInterfaces;
-import Interfaces.OutsideWorldInterfaces;
+import Interfaces.IOutside;
 import static MainPackage.Constants.NUM_CUSTOMERS;
 import genclass.GenericIO;
 import java.rmi.RemoteException;
@@ -15,7 +15,7 @@ import java.rmi.RemoteException;
  * @author danielmartins
  * @author giselapinto
  */
-public class OutsideWorld implements OutsideWorldInterfaces {
+public class OutsideWorld implements IOutside {
     /**
     * Logger class for debugging.
     */

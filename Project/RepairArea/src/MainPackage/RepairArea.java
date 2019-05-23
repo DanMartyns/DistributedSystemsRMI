@@ -6,6 +6,7 @@
 package MainPackage;
 
 import Interfaces.GeneralInformationRepoInterfaces;
+import Interfaces.IRepair;
 import Interfaces.RepairAreaInterfaces;
 import MainPackage.Constants;
 import java.util.HashMap;
@@ -18,7 +19,7 @@ import java.rmi.RemoteException;
  * @author danielmartins
  * @author giselapinto
  */
-public class RepairArea implements RepairAreaInterfaces {
+public class RepairArea implements IRepair {
 
     /**
      * Logger class for debugging.
