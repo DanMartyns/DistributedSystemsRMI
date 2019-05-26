@@ -19,18 +19,18 @@ import java.rmi.server.UnicastRemoteObject;
  * @author danielmartins
  */
 public class MainProgram {
-    
+
     /**
      * Used to check if the service must terminate.
      */
     public static boolean serviceEnd = false;
-    
-    
+
+
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
+
         /* get location of the generic registry service */
         String rmiRegHostName = Constants.REGISTRY_HOST_NAME;
         int rmiRegPortNumb = Constants.REGISTRY_PORT;
@@ -38,21 +38,16 @@ public class MainProgram {
         /* look for the remote object by name in the remote host registry */
         String nameEntry = Constants.REGISTRY_NAME_ENTRY;
         String nameEntryObject = Constants.LOUNGE_NAME_ENTRY;
-        
+
         /* create and install the security manager */
         if (System.getSecurityManager () == null)
             System.setSecurityManager (new SecurityManager ());
 
         Registry registry = null;
-        RegisterInterfaces registerInt = null;
-        GeneralInformationRepoInterfaces logger = null;
-        ParkInterfaces park = null;
-        RepairAreaInterfaces repairArea = null;
-        SupplierSiteInterfaces supplierSite = null;
-        OutsideWorldInterfaces outsideWorld = null;
-        
-       
-        
+        IRegistry registerInt = null;
+        IGeneral logger = null;
+
+
         try
         {
             registry = LocateRegistry.getRegistry (rmiRegHostName, rmiRegPortNumb);
@@ -63,11 +58,11 @@ public class MainProgram {
           System.exit (1);
         }
         GenericIO.writelnString ("RMI registry was created!");
-        
+
                 /* Look for the other entities in the registry */
         try
         {
-            logger = (GeneralInformationRepoInterfaces) registry.lookup (Constants.LOGGER_NAME_ENTRY);
+            logger = (IGeneral) registry.lookup (Constants.LOGGER_NAME_ENTRY);
         }
         catch (NotBoundException ex) {
             System.out.println("Logger is not registered: " + ex.getMessage () );
@@ -78,84 +73,29 @@ public class MainProgram {
             ex.printStackTrace ();
             System.exit (1);
         }
-        
-        
-        try
-        {
-            park = (ParkInterfaces) registry.lookup (Constants.PARK_NAME_ENTRY);
-        }
-        catch (NotBoundException ex) {
-            System.out.println("Park is not registered: " + ex.getMessage ());
-            ex.printStackTrace ();
-            System.exit(1);
-        } catch (RemoteException ex) {
-            System.out.println("Exception thrown while locating Park: " + ex.getMessage () );
-            ex.printStackTrace ();
-            System.exit (1);
-        }
-        
-        try
-        {
-            repairArea = (RepairAreaInterfaces) registry.lookup (Constants.REPAIRAREA_NAME_ENTRY);
-        }
-        catch (NotBoundException ex) {
-            System.out.println("Repair Area is not registered: " + ex.getMessage ());
-            ex.printStackTrace ();
-            System.exit(1);
-        } catch (RemoteException ex) {
-            System.out.println("Exception thrown while locating Repair Area: " + ex.getMessage () );
-            ex.printStackTrace ();
-            System.exit (1);
-        }
-        
-        try
-        {
-            supplierSite = (SupplierSiteInterfaces) registry.lookup (Constants.SUPPLIERSITE_NAME_ENTRY);
-        }
-        catch (NotBoundException ex) {
-            System.out.println("Supplier Site is not registered: " + ex.getMessage ());
-            ex.printStackTrace ();
-            System.exit(1);
-        } catch (RemoteException ex) {
-            System.out.println("Exception thrown while locating Supplier Site: " + ex.getMessage () );
-            ex.printStackTrace ();
-            System.exit (1);
-        }
-        
-        try
-        {
-            outsideWorld = (OutsideWorldInterfaces) registry.lookup (Constants.OUTSIDEWORLD_NAME_ENTRY);
-        }
-        catch (NotBoundException ex) {
-            System.out.println("Outside World is not registered: " + ex.getMessage () );
-            ex.printStackTrace ();
-            System.exit(1);
-        } catch (RemoteException ex) {
-            System.out.println("Exception thrown while locating Outside World: " + ex.getMessage () );
-            ex.printStackTrace ();
-            System.exit (1);
-        }
-        
+
+
+
         GenericIO.writelnString ("Starting Lounge...");
-        
+
         /* Initialize the shared region */
-        Lounge lounge = new Lounge(logger, outsideWorld, supplierSite, repairArea, park);
-        LoungeInterfaces loungInt = null;
-        
+        Lounge lounge = new Lounge(logger);
+        ILounge loungInt = null;
+
         try
-        { 
-            loungInt = (LoungeInterfaces) UnicastRemoteObject.exportObject (lounge, Constants.LOUNGE_PORT);
+        {
+            loungInt = (ILounge) UnicastRemoteObject.exportObject (lounge, Constants.LOUNGE_PORT);
         }
         catch (RemoteException e)
         { GenericIO.writelnString ("Lounge stub generation exception: " + e.getMessage ());
           e.printStackTrace ();
           System.exit (1);
         }
-        
+
         /* register it with the general registry service */
         try
-        { 
-            registerInt = (RegisterInterfaces) registry.lookup(nameEntry);
+        {
+            registerInt = (IRegistry) registry.lookup(nameEntry);
         }
         catch (RemoteException e)
         { GenericIO.writelnString ("Register lookup exception: " + e.getMessage ());
@@ -182,7 +122,7 @@ public class MainProgram {
           System.exit (1);
         }
         GenericIO.writelnString ("Lounge object was registered!");
-        
+
         /* Wait for the service to end */
         while(!serviceEnd){
             try {
@@ -194,12 +134,88 @@ public class MainProgram {
                 System.exit(1);
             }
         }
-        
+
         GenericIO.writelnString("Lounge finished execution.");
-        
+
+        /* Get the other shared regions to send service end message */
+        IPark park = null;
+        IRepair repairArea = null;
+        ISupplier supplierSite = null;
+        IOutside outsideWorld = null;
+
+
+        try
+        {
+            park = (IPark) registry.lookup (Constants.PARK_NAME_ENTRY);
+        }
+        catch (NotBoundException ex) {
+            System.out.println("Park is not registered: " + ex.getMessage ());
+            ex.printStackTrace ();
+            System.exit(1);
+        } catch (RemoteException ex) {
+            System.out.println("Exception thrown while locating Park: " + ex.getMessage () );
+            ex.printStackTrace ();
+            System.exit (1);
+        }
+
+        try
+        {
+            repairArea = (IRepair) registry.lookup (Constants.REPAIRAREA_NAME_ENTRY);
+        }
+        catch (NotBoundException ex) {
+            System.out.println("Repair Area is not registered: " + ex.getMessage ());
+            ex.printStackTrace ();
+            System.exit(1);
+        } catch (RemoteException ex) {
+            System.out.println("Exception thrown while locating Repair Area: " + ex.getMessage () );
+            ex.printStackTrace ();
+            System.exit (1);
+        }
+
+        try
+        {
+            supplierSite = (ISupplier) registry.lookup (Constants.SUPPLIERSITE_NAME_ENTRY);
+        }
+        catch (NotBoundException ex) {
+            System.out.println("Supplier Site is not registered: " + ex.getMessage ());
+            ex.printStackTrace ();
+            System.exit(1);
+        } catch (RemoteException ex) {
+            System.out.println("Exception thrown while locating Supplier Site: " + ex.getMessage () );
+            ex.printStackTrace ();
+            System.exit (1);
+        }
+
+        try
+        {
+            outsideWorld = (IOutside) registry.lookup (Constants.OUTSIDEWORLD_NAME_ENTRY);
+        }
+        catch (NotBoundException ex) {
+            System.out.println("Outside World is not registered: " + ex.getMessage () );
+            ex.printStackTrace ();
+            System.exit(1);
+        } catch (RemoteException ex) {
+            System.out.println("Exception thrown while locating Outside World: " + ex.getMessage () );
+            ex.printStackTrace ();
+            System.exit (1);
+        }
+
+        /* Send service end to other shared regions */
+        try {
+            logger.serviceEnd();
+            park.serviceEnd();
+            repairArea.serviceEnd();
+            supplierSite.serviceEnd();
+            outsideWorld.serviceEnd();
+        } catch (RemoteException ex) {
+            GenericIO.writelnString ("Service end exception: " + ex.getMessage ());
+            ex.printStackTrace ();
+            System.exit (1);
+        }
+
         /* Unregister shared region */
         try
-        { 
+        {
             registerInt.unbind (nameEntryObject);
         }
         catch (RemoteException e)
@@ -212,10 +228,10 @@ public class MainProgram {
           System.exit (1);
         }
         GenericIO.writelnString ("Lounge object was unregistered!");
-        
+
         /* Unexport shared region */
         try
-        { 
+        {
             UnicastRemoteObject.unexportObject (lounge, false);
         }
         catch (RemoteException e)
@@ -223,9 +239,9 @@ public class MainProgram {
           e.printStackTrace ();
           System.exit (1);
         }
-        
+
         GenericIO.writelnString ("Lounge object was unexported successfully!");
-        
+
     }
-   
+
 }

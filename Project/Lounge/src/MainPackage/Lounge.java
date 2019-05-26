@@ -8,10 +8,7 @@ package MainPackage;
 
 import Interfaces.GeneralInformationRepoInterfaces;
 import Interfaces.ILounge;
-import Interfaces.OutsideWorldInterfaces;
-import Interfaces.ParkInterfaces;
-import Interfaces.RepairAreaInterfaces;
-import Interfaces.SupplierSiteInterfaces;
+
 
 import genclass.GenericIO;
 import java.util.*;
@@ -35,26 +32,7 @@ public class Lounge implements ILounge {
      */
     private GeneralInformationRepoInterfaces logger;
 
-    /**
-     * OutsideWorld stub class.
-     */
-    private final OutsideWorldInterfaces outsideWorld;
-
-    /**
-     * Park stub class.
-     */
-    private final ParkInterfaces park;
-
-    /**
-     * RepairArea stub class.
-     */
-    private final RepairAreaInterfaces repairArea;
-
-    /**
-     * SupplierSite stub class.
-     */
-    private final SupplierSiteInterfaces supplierSite;
-
+    
     /**
      * Queue dedicated the service "ATENDING CUSTOMER".
      */
@@ -78,17 +56,10 @@ public class Lounge implements ILounge {
     /**
      * Lounge constructor
      * @param logger GeneralInformationRepo stub instance
-     * @param out out stub instance
-     * @param park park stub instance
-     * @param repairArea repairArea stub instance
-     * @param supplierSite supplierSite stub instance
      */
-    public Lounge(GeneralInformationRepoInterfaces logger, OutsideWorldInterfaces out,SupplierSiteInterfaces supplierSite, RepairAreaInterfaces repairArea,  ParkInterfaces park) {
+    public Lounge(GeneralInformationRepoInterfaces logger) {
         this.logger = logger;
-        this.outsideWorld = out;
-        this.park = park;
-        this.repairArea = repairArea;
-        this.supplierSite = supplierSite;
+        
     }
 
     /******************************************************************************************
@@ -387,10 +358,6 @@ public class Lounge implements ILounge {
         logger.setFlagCPieces(getting_new_parts.contains("2") ? "2" : "--");
         shutdownNumber++;
         if(shutdownNumber==3){
-            repairArea.serviceEnd();
-            supplierSite.serviceEnd();
-            park.serviceEnd();
-            outsideWorld.serviceEnd();
             logger.serviceEnd();
             MainProgram.serviceEnd = true;
             notifyAll();
