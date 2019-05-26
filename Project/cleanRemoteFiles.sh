@@ -1,4 +1,3 @@
-# You need to install sshpass to run the script correctly
 
 bold=$(tput bold)
 normal=$(tput sgr0)
@@ -66,8 +65,8 @@ sshpass -e ssh -t -t -o StrictHostKeyChecking=no sd0401@l040101-ws07.ua.pt << EO
 	rm -rf classes
 	exit
 EOF
-echo -e "\n${bold}->${normal} A eliminar Mechanic da máquina ${bold}8${normal}"
-sshpass -e ssh -t -t -o StrictHostKeyChecking=no sd0401@l040101-ws08.ua.pt << EOF
+echo -e "\n${bold}->${normal} A eliminar Mechanic da máquina ${bold}10${normal}"
+sshpass -e ssh -t -t -o StrictHostKeyChecking=no sd0401@l040101-ws10.ua.pt << EOF
 	rm -rf Mechanic
 	cd Public
 	rm -rf classes
