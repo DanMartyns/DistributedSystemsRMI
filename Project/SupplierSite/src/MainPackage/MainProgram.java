@@ -40,8 +40,8 @@ public class MainProgram {
         String nameEntryObject = Constants.SUPPLIERSITE_NAME_ENTRY;
 
         Registry registry = null;
-        RegisterInterfaces registerInt = null;
-        GeneralInformationRepoInterfaces logger = null;
+        IRegistry registerInt = null;
+        IGeneral logger = null;
         
        /* create and install the security manager */
         if (System.getSecurityManager () == null)
@@ -61,7 +61,7 @@ public class MainProgram {
                 /* Look for the other entities in the registry */
         try
         {
-            logger = (GeneralInformationRepoInterfaces) registry.lookup (Constants.LOGGER_NAME_ENTRY);
+            logger = (IGeneral) registry.lookup (Constants.LOGGER_NAME_ENTRY);
         }
         catch (NotBoundException ex) {
             System.out.println("Logger is not registered: " + ex.getMessage () );
@@ -78,11 +78,11 @@ public class MainProgram {
         
         /* Initialize the shared region */
         SupplierSite supplierSite = new SupplierSite(logger);
-        SupplierSiteInterfaces supplierSiteInt = null;
+        ISupplier supplierSiteInt = null;
         
         try
         { 
-            supplierSiteInt = (SupplierSiteInterfaces) UnicastRemoteObject.exportObject (supplierSite, Constants.SUPPLIERSITE_PORT);
+            supplierSiteInt = (ISupplier) UnicastRemoteObject.exportObject (supplierSite, Constants.SUPPLIERSITE_PORT);
         }
         catch (RemoteException e)
         { GenericIO.writelnString ("Supplier Site stub generation exception: " + e.getMessage ());
@@ -93,7 +93,7 @@ public class MainProgram {
         /* register it with the general registry service */
         try
         { 
-            registerInt = (RegisterInterfaces) registry.lookup(nameEntry);
+            registerInt = (IRegistry) registry.lookup(nameEntry);
         }
         catch (RemoteException e)
         { GenericIO.writelnString ("Register lookup exception: " + e.getMessage ());
@@ -107,15 +107,10 @@ public class MainProgram {
         }
 
         try
-        { registerInt.bind (nameEntryObject, supplierSiteInt);
+        { registerInt.rebind (nameEntryObject, supplierSiteInt);
         }
         catch (RemoteException e)
         { GenericIO.writelnString ("Supplier Site registration exception: " + e.getMessage ());
-          e.printStackTrace ();
-          System.exit (1);
-        }
-        catch (AlreadyBoundException e)
-        { GenericIO.writelnString ("Supplier Site already bound exception: " + e.getMessage ());
           e.printStackTrace ();
           System.exit (1);
         }

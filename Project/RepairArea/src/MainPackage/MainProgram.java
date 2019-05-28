@@ -44,8 +44,8 @@ public class MainProgram {
             System.setSecurityManager (new SecurityManager ());
         
         Registry registry = null;
-        RegisterInterfaces registerInt = null;
-        GeneralInformationRepoInterfaces logger = null;
+        IRegistry registerInt = null;
+        IGeneral logger = null;
         
        
         try
@@ -62,7 +62,7 @@ public class MainProgram {
                 /* Look for the other entities in the registry */
         try
         {
-            logger = (GeneralInformationRepoInterfaces) registry.lookup (Constants.LOGGER_NAME_ENTRY);
+            logger = (IGeneral) registry.lookup (Constants.LOGGER_NAME_ENTRY);
         }
         catch (NotBoundException ex) {
             System.out.println("Logger is not registered: " + ex.getMessage () );
@@ -79,11 +79,11 @@ public class MainProgram {
         
         /* Initialize the shared region */
         RepairArea repairArea = new RepairArea(logger);
-        RepairAreaInterfaces repairAreaInt = null;
+        IRepair repairAreaInt = null;
         
         try
         { 
-            repairAreaInt = (RepairAreaInterfaces) UnicastRemoteObject.exportObject (repairArea, Constants.REPAIRAREA_PORT);
+            repairAreaInt = (IRepair) UnicastRemoteObject.exportObject (repairArea, Constants.REPAIRAREA_PORT);
         }
         catch (RemoteException e)
         { GenericIO.writelnString ("Repair Area stub generation exception: " + e.getMessage ());
@@ -94,7 +94,7 @@ public class MainProgram {
         /* register it with the general registry service */
         try
         { 
-            registerInt = (RegisterInterfaces) registry.lookup(nameEntry);
+            registerInt = (IRegistry) registry.lookup(nameEntry);
         }
         catch (RemoteException e)
         { GenericIO.writelnString ("Register lookup exception: " + e.getMessage ());
@@ -108,15 +108,10 @@ public class MainProgram {
         }
 
         try
-        { registerInt.bind (nameEntryObject, repairAreaInt);
+        { registerInt.rebind (nameEntryObject, repairAreaInt);
         }
         catch (RemoteException e)
         { GenericIO.writelnString ("Repair Area registration exception: " + e.getMessage ());
-          e.printStackTrace ();
-          System.exit (1);
-        }
-        catch (AlreadyBoundException e)
-        { GenericIO.writelnString ("Repair Area already bound exception: " + e.getMessage ());
           e.printStackTrace ();
           System.exit (1);
         }

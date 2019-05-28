@@ -31,10 +31,11 @@ public class MainProgram {
         String nameEntry = Constants.REGISTRY_NAME_ENTRY;
         Registry registry = null;
         
-        LoungeInterfaces loungeInt = null;
-        OutsideWorldInterfaces outsideworldInt = null;
-        RepairAreaInterfaces repairAreaInt = null;
-        SupplierSiteInterfaces suppliersiteInt = null;
+        ILounge loungeInt = null;
+        IOutside outsideworldInt = null;
+        IRepair repairAreaInt = null;
+        ISupplier suppliersiteInt = null;
+        
         try
         {
             registry = LocateRegistry.getRegistry (rmiRegHostName, rmiRegPortNumb);
@@ -49,7 +50,7 @@ public class MainProgram {
                 /* Look for the other entities in the registry */
         try
         {
-            loungeInt = (LoungeInterfaces) registry.lookup (Constants.LOUNGE_NAME_ENTRY);
+            loungeInt = (ILounge) registry.lookup (Constants.LOUNGE_NAME_ENTRY);
         }
         catch (NotBoundException ex) {
             System.out.println("Lounge is not registered: " + ex.getMessage () );
@@ -63,7 +64,7 @@ public class MainProgram {
 
         try
         {
-            outsideworldInt = (OutsideWorldInterfaces) registry.lookup (Constants.OUTSIDEWORLD_NAME_ENTRY);
+            outsideworldInt = (IOutside) registry.lookup (Constants.OUTSIDEWORLD_NAME_ENTRY);
         }
         catch (NotBoundException ex) {
             System.out.println("Outside World is not registered: " + ex.getMessage () );
@@ -77,7 +78,7 @@ public class MainProgram {
         
         try
         {
-            repairAreaInt = (RepairAreaInterfaces) registry.lookup (Constants.REPAIRAREA_NAME_ENTRY);
+            repairAreaInt = (IRepair) registry.lookup (Constants.REPAIRAREA_NAME_ENTRY);
         }
         catch (NotBoundException ex) {
             System.out.println("Repair Area is not registered: " + ex.getMessage () );
@@ -91,7 +92,7 @@ public class MainProgram {
         
         try
         {
-            suppliersiteInt = (SupplierSiteInterfaces) registry.lookup (Constants.SUPPLIERSITE_NAME_ENTRY);
+            suppliersiteInt = (ISupplier) registry.lookup (Constants.SUPPLIERSITE_NAME_ENTRY);
         }
         catch (NotBoundException ex) {
             System.out.println("Supplier Site is not registered: " + ex.getMessage ());

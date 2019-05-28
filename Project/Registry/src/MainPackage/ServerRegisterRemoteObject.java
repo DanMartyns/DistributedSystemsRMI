@@ -1,11 +1,11 @@
 package MainPackage;
 
+import Interfaces.IRegistry;
 import genclass.GenericIO;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
-import Interfaces.RegisterInterfaces;
 import java.rmi.NotBoundException;
 
 /**
@@ -42,11 +42,11 @@ public class ServerRegisterRemoteObject
 
     /* instantiate a registration remote object and generate a stub for it */
      RegisterRemoteObject regEngine = new RegisterRemoteObject (rmiRegHostName, rmiRegPortNumb);
-     RegisterInterfaces registerInt = null;
+     IRegistry registerInt = null;
      int listeningPort = Constants.SERVER_REGISTRY_PORT;
 
      try
-     { registerInt = (RegisterInterfaces) UnicastRemoteObject.exportObject (regEngine, listeningPort);
+     { registerInt = (IRegistry) UnicastRemoteObject.exportObject (regEngine, listeningPort);
      }
      catch (RemoteException e)
      { GenericIO.writelnString ("RegisterRemoteObject stub generation exception: " + e.getMessage ());

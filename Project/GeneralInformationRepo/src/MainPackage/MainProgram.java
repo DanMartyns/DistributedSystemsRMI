@@ -20,18 +20,18 @@ import java.rmi.server.UnicastRemoteObject;
  * @author danielmartins
  */
 public class MainProgram {
-    
+
     /**
      * Used to check if the service must terminate.
      */
     public static boolean serviceEnd = false;
-    
-    
+
+
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) throws RemoteException {
-        
+
         /* get location of the generic registry service */
         String rmiRegHostName = Constants.REGISTRY_HOST_NAME;
         int rmiRegPortNumb = Constants.REGISTRY_PORT;
@@ -39,16 +39,16 @@ public class MainProgram {
         /* look for the remote object by name in the remote host registry */
         String nameEntry = Constants.REGISTRY_NAME_ENTRY;
         String nameEntryObject = Constants.LOGGER_NAME_ENTRY;
-        
+
         /* create and install the security manager */
         if (System.getSecurityManager () == null)
             System.setSecurityManager (new SecurityManager ());
-        
+
 
         Registry registry = null;
-        RegisterInterfaces registerInt = null;
-        
-       
+        IRegistry registerInt = null;
+
+
         try
         {
             registry = LocateRegistry.getRegistry (rmiRegHostName, rmiRegPortNumb);
@@ -59,30 +59,30 @@ public class MainProgram {
           System.exit (1);
         }
         GenericIO.writelnString ("RMI registry was created!");
-        
+
         GenericIO.writelnString ("Starting Logger...");
-        
+
         /* Initialize the shared region */
         GeneralInformationRepo logger = new GeneralInformationRepo(FILE_NAME);
-        GeneralInformationRepoInterfaces loggerInt = null;
-        
+        IGeneral loggerInt = null;
+
         logger.initStateLog();
-        logger.printHeaderLog();  
-        
+        logger.printHeaderLog();
+
         try
-        { 
-            loggerInt = (GeneralInformationRepoInterfaces) UnicastRemoteObject.exportObject (logger, Constants.LOGGER_PORT);
+        {
+            loggerInt = (IGeneral) UnicastRemoteObject.exportObject (logger, Constants.LOGGER_PORT);
         }
         catch (RemoteException e)
         { GenericIO.writelnString ("Logger stub generation exception: " + e.getMessage ());
           e.printStackTrace ();
           System.exit (1);
         }
-        
+
         /* register it with the general registry service */
         try
-        { 
-            registerInt = (RegisterInterfaces) registry.lookup(nameEntry);
+        {
+            registerInt = (IRegistry) registry.lookup(nameEntry);
         }
         catch (RemoteException e)
         { GenericIO.writelnString ("Register lookup exception: " + e.getMessage ());
@@ -96,20 +96,15 @@ public class MainProgram {
         }
 
         try
-        { registerInt.bind (nameEntryObject, loggerInt);
+        { registerInt.rebind (nameEntryObject, loggerInt);
         }
         catch (RemoteException e)
         { GenericIO.writelnString ("Logger registration exception: " + e.getMessage ());
           e.printStackTrace ();
           System.exit (1);
         }
-        catch (AlreadyBoundException e)
-        { GenericIO.writelnString ("Logger already bound exception: " + e.getMessage ());
-          e.printStackTrace ();
-          System.exit (1);
-        }
         GenericIO.writelnString ("Logger object was registered!");
-        
+
         /* Wait for the service to end */
         while(!serviceEnd){
             try {
@@ -121,12 +116,12 @@ public class MainProgram {
                 System.exit(1);
             }
         }
-        
+
         GenericIO.writelnString("Logger finished execution.");
-        
+
         /* Unregister shared region */
         try
-        { 
+        {
             registerInt.unbind (nameEntryObject);
         }
         catch (RemoteException e)
@@ -139,10 +134,10 @@ public class MainProgram {
           System.exit (1);
         }
         GenericIO.writelnString ("Logger object was unregistered!");
-        
+
         /* Unexport shared region */
         try
-        { 
+        {
             UnicastRemoteObject.unexportObject (logger, false);
         }
         catch (RemoteException e)
@@ -150,9 +145,9 @@ public class MainProgram {
           e.printStackTrace ();
           System.exit (1);
         }
-        
+
         GenericIO.writelnString ("Logger object was unexported successfully!");
-        
+
     }
-   
+
 }

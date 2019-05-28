@@ -32,9 +32,9 @@ public class MainProgram {
         String nameEntry = Constants.REGISTRY_NAME_ENTRY;
         Registry registry = null;
         
-        LoungeInterfaces loungeInt = null;
-        OutsideWorldInterfaces outsideworldInt = null;
-        ParkInterfaces parkInt = null;
+        ILounge loungeInt = null;
+        IOutside outsideworldInt = null;
+        IPark parkInt = null;
        
         try
         {
@@ -50,7 +50,7 @@ public class MainProgram {
                 /* Look for the other entities in the registry */
         try
         {
-            loungeInt = (LoungeInterfaces) registry.lookup (Constants.LOUNGE_NAME_ENTRY);
+            loungeInt = (ILounge) registry.lookup (Constants.LOUNGE_NAME_ENTRY);
         }
         catch (NotBoundException ex) {
             System.out.println("Lounge is not registered: " + ex.getMessage () );
@@ -64,7 +64,7 @@ public class MainProgram {
         
         try
         {
-            outsideworldInt = (OutsideWorldInterfaces) registry.lookup (Constants.OUTSIDEWORLD_NAME_ENTRY);
+            outsideworldInt = (IOutside) registry.lookup (Constants.OUTSIDEWORLD_NAME_ENTRY);
         }
         catch (NotBoundException ex) {
             System.out.println("Outside World is not registered: " + ex.getMessage () );
@@ -78,7 +78,7 @@ public class MainProgram {
         
         try
         {
-            parkInt = (ParkInterfaces) registry.lookup (Constants.PARK_NAME_ENTRY);
+            parkInt = (IPark) registry.lookup (Constants.PARK_NAME_ENTRY);
         }
         catch (NotBoundException ex) {
             System.out.println("Park is not registered: " + ex.getMessage ());

@@ -46,8 +46,8 @@ public class MainProgram {
 
         
         Registry registry = null;
-        RegisterInterfaces registerInt = null;
-        GeneralInformationRepoInterfaces logger = null;
+        IRegistry registerInt = null;
+        IGeneral logger = null;
         
         
         
@@ -65,7 +65,7 @@ public class MainProgram {
                 /* Look for the other entities in the registry */
         try
         {
-            logger = (GeneralInformationRepoInterfaces) registry.lookup (Constants.LOGGER_NAME_ENTRY);
+            logger = (IGeneral) registry.lookup (Constants.LOGGER_NAME_ENTRY);
         }
         catch (NotBoundException ex) {
             System.out.println("Logger is not registered: " + ex.getMessage () );
@@ -82,11 +82,11 @@ public class MainProgram {
         
         /* Initialize the shared region */
         OutsideWorld outsideWorld = new OutsideWorld(logger);
-        OutsideWorldInterfaces outsideWorldInt = null;
+        IOutside outsideWorldInt = null;
         
         try
         { 
-            outsideWorldInt = (OutsideWorldInterfaces) UnicastRemoteObject.exportObject (outsideWorld, Constants.OUTSIDEWORLD_PORT);
+            outsideWorldInt = (IOutside) UnicastRemoteObject.exportObject (outsideWorld, Constants.OUTSIDEWORLD_PORT);
         }
         catch (RemoteException e)
         { GenericIO.writelnString ("Outside World stub generation exception: " + e.getMessage ());
@@ -96,7 +96,7 @@ public class MainProgram {
         
         /* register it with the general registry service */
         try
-        { registerInt = (RegisterInterfaces) registry.lookup(nameEntry);
+        { registerInt = (IRegistry) registry.lookup(nameEntry);
         }
         catch (RemoteException e)
         { GenericIO.writelnString ("Register lookup exception: " + e.getMessage ());
@@ -111,15 +111,10 @@ public class MainProgram {
 
         try
         { 
-            registerInt.bind (nameEntryObject, outsideWorldInt);
+            registerInt.rebind (nameEntryObject, outsideWorldInt);
         }
         catch (RemoteException e)
         { GenericIO.writelnString ("Outside World registration exception: " + e.getMessage ());
-          e.printStackTrace ();
-          System.exit (1);
-        }
-        catch (AlreadyBoundException e)
-        { GenericIO.writelnString ("Outside World already bound exception: " + e.getMessage ());
           e.printStackTrace ();
           System.exit (1);
         }

@@ -60,6 +60,7 @@ cd ..
 echo -e "${bold}->${normal} A limpar o Logger"
 cd GeneralInformationRepo/
 find . -name '*.class' -type f -delete
+find . -name '*.txt' -type f -delete
 cd ..
 
 echo -e "\n${bold}->${normal} A limpeza terminou"

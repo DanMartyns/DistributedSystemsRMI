@@ -109,15 +109,10 @@ public class MainProgram {
         }
 
         try
-        { registerInt.bind (nameEntryObject, loungInt);
+        { registerInt.rebind (nameEntryObject, loungInt);
         }
         catch (RemoteException e)
         { GenericIO.writelnString ("Lounge registration exception: " + e.getMessage ());
-          e.printStackTrace ();
-          System.exit (1);
-        }
-        catch (AlreadyBoundException e)
-        { GenericIO.writelnString ("Lounge already bound exception: " + e.getMessage ());
           e.printStackTrace ();
           System.exit (1);
         }

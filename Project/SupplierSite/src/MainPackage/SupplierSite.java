@@ -6,7 +6,7 @@
 package MainPackage;
 
 import Interfaces.GeneralInformationRepoInterfaces;
-import Interfaces.SupplierSiteInterfaces;
+import Interfaces.ISupplier;
 import genclass.GenericIO;
 import java.rmi.RemoteException;
 
@@ -14,7 +14,7 @@ import java.rmi.RemoteException;
  * @author danielmartins
  * @author giselapinto
  */
-public class SupplierSite implements SupplierSiteInterfaces {
+public class SupplierSite implements ISupplier {
 
     /**
      * Logger class for debugging.

@@ -9,6 +9,6 @@ package Interfaces;
  * @author danielmartins
  * @author giselapinto
  */
-public interface IRegistry extends RegisterInterfaces {
+public interface IRegistry extends RegisterInterfaces{
     
 }

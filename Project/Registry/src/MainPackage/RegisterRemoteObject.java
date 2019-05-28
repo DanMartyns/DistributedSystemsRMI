@@ -1,12 +1,12 @@
 package MainPackage;
 
+import Interfaces.IRegistry;
 import java.rmi.AlreadyBoundException;
 import java.rmi.NotBoundException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import Interfaces.RegisterInterfaces;
 
 
 /**
@@ -14,7 +14,7 @@ import Interfaces.RegisterInterfaces;
  *  Communication is based in Java RMI.
  */
 
-public class RegisterRemoteObject implements RegisterInterfaces
+public class RegisterRemoteObject implements IRegistry
 {
     /**
      *  Name of local host
@@ -31,7 +31,7 @@ public class RegisterRemoteObject implements RegisterInterfaces
      */
 
     private int rmiRegPortNumb = 1099;
-   
+
 
     /**
      *  Instantiation of a registering object.
@@ -47,7 +47,7 @@ public class RegisterRemoteObject implements RegisterInterfaces
         this.rmiRegHostName = rmiRegHostName;
         if ((rmiRegPortNumb >= 4000) && (rmiRegPortNumb <= 65535))
            this.rmiRegPortNumb = rmiRegPortNumb;
-        
+
     }
 
     /**
@@ -114,5 +114,5 @@ public class RegisterRemoteObject implements RegisterInterfaces
         registry = LocateRegistry.getRegistry (rmiRegHostName, rmiRegPortNumb);
         registry.rebind (name, ref);
     }
-     
+
 }

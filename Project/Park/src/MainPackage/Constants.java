@@ -68,7 +68,7 @@ public class Constants {
     /**
      * Server registry server port.
      */
-    public final static int REGISTRY_PORT = 8081;
+    public final static int REGISTRY_PORT = 22410;
 
     /**
      * Registry name entry for the register.
@@ -84,7 +84,7 @@ public class Constants {
     /**
      * Server registry server port.
      */
-    public final static int SERVER_REGISTRY_PORT = 8082;
+    public final static int SERVER_REGISTRY_PORT = 22411;
 
     /**
      * General Repository server host name.
@@ -94,7 +94,7 @@ public class Constants {
     /**
      * General Repository server port.
      */
-    public static final int LOGGER_PORT = 8083;
+    public static final int LOGGER_PORT = 22412;
 
     /**
      * General Repository server name entry for the register.
@@ -109,7 +109,7 @@ public class Constants {
     /**
      * Lounge server port.
      */
-    public static final int LOUNGE_PORT = 8084;
+    public static final int LOUNGE_PORT = 22413;
 
     /**
      * Lounge server name entry for the register.
@@ -123,7 +123,7 @@ public class Constants {
     /**
      * Outside World server port.
      */
-    public static final int OUTSIDEWORLD_PORT = 8085;
+    public static final int OUTSIDEWORLD_PORT = 22414;
 
     /**
      * Outside World server name entry for the register.
@@ -137,7 +137,7 @@ public class Constants {
     /**
      * Supplier Site server port.
      */
-    public static final int SUPPLIERSITE_PORT = 8086;
+    public static final int SUPPLIERSITE_PORT = 22415;
 
     /**
      * Supplier Site server name entry for the register.
@@ -152,7 +152,7 @@ public class Constants {
     /**
      * Repair Area server port.
      */
-    public static final int REPAIRAREA_PORT = 8087;
+    public static final int REPAIRAREA_PORT = 22416;
 
     /**
      * Repair Area server name entry for the register.
@@ -167,7 +167,7 @@ public class Constants {
     /**
      * Park server port.
      */
-    public static final int PARK_PORT = 8088;
+    public static final int PARK_PORT = 22417;
 
     /**
      * Park server name entry for the register.
