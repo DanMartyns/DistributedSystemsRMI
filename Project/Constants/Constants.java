@@ -104,7 +104,7 @@ public class Constants {
       /**
        * Repair Area server host name.
        */
-      public static final String REPAIRAREA_HOST_NAME = "l040101-ws02.ua.pt";
+      public static final String REPAIRAREA_HOST_NAME = "l040101-ws03.ua.pt";
 
       /**
        * Repair Area server port.
@@ -120,7 +120,7 @@ public class Constants {
       /**
        * Park server host name.
        */
-      public static final String PARK_HOST_NAME = "l040101-ws03.ua.pt";
+      public static final String PARK_HOST_NAME = "l040101-ws05.ua.pt";
 
       /**
        * Park server port.
@@ -136,7 +136,7 @@ public class Constants {
       /**
        * Supplier Site server host name.
        */
-      public static final String SUPPLIERSITE_HOST_NAME = "l040101-ws04.ua.pt";
+      public static final String SUPPLIERSITE_HOST_NAME = "l040101-ws06.ua.pt";
       /**
        * Supplier Site server port.
        */
@@ -150,7 +150,7 @@ public class Constants {
       /**
        * Outside World server host name.
        */
-      public static final String OUTSIDEWORLD_HOST_NAME = "l040101-ws05.ua.pt";
+      public static final String OUTSIDEWORLD_HOST_NAME = "l040101-ws04.ua.pt";
       /**
        * Outside World server port.
        */
@@ -165,7 +165,7 @@ public class Constants {
       /**
        * Lounge server host name.
        */
-      public static final String LOUNGE_HOST_NAME = "l040101-ws06.ua.pt";
+      public static final String LOUNGE_HOST_NAME = "l040101-ws02.ua.pt";
 
       /**
        * Lounge server port.
