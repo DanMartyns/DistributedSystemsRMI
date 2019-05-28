@@ -86,6 +86,8 @@ sshpass -e sftp -o StrictHostKeyChecking=no sd0401@l040101-ws09.ua.pt << EOF
 EOF
 
 
+echo -e "\n${bold}* Move completo *${normal}"
+
 echo -e "\n${bold}* Compilação do código em cada nó *${normal}"
 
 
@@ -97,12 +99,27 @@ sshpass -e ssh -t -t -o StrictHostKeyChecking=no sd0401@l040101-ws01.ua.pt << EO
 
 
     javac Registry/src/Interfaces/*.java Registry/src/MainPackage/*.java
-    mv Registry/src/Interfaces/*.class Registry/src/dir_registry/Interfaces/
-    mv Registry/src/MainPackage/*.class Registry/src/dir_registry/MainPackage/
+    cp Registry/src/Interfaces/*.class Registry/src/dir_registry/Interfaces/
+    cp Registry/src/MainPackage/*.class Registry/src/dir_registry/MainPackage/
+
+    cd Public/
+    mkdir dir_registry
+    cd dir_registry/
+    mkdir classes
+    cd ../..
+    cp -r Registry/src/dir_registry/* Public/dir_registry/classes/
+
 
     javac GeneralInformationRepo/src/Interfaces/*.java GeneralInformationRepo/src/MainPackage/*.java
-    mv GeneralInformationRepo/src/Interfaces/*.class GeneralInformationRepo/src/dir_logger/Interfaces/
-    mv GeneralInformationRepo/src/MainPackage/*.class GeneralInformationRepo/src/dir_logger/MainPackage/
+    cp GeneralInformationRepo/src/Interfaces/*.class GeneralInformationRepo/src/dir_logger/Interfaces/
+    cp GeneralInformationRepo/src/MainPackage/*.class GeneralInformationRepo/src/dir_logger/MainPackage/
+
+    cd Public/
+    mkdir dir_logger
+    cd dir_logger/
+    mkdir classes
+    cd ../..
+    cp -r GeneralInformationRepo/src/dir_logger/* Public/dir_logger/classes/
 
     exit
 EOF
@@ -111,10 +128,14 @@ echo -e "\n${bold}->${normal} A compilar Repair Area na máquina ${bold}2${norma
 sshpass -e ssh -t -t -o StrictHostKeyChecking=no sd0401@l040101-ws02.ua.pt << EOF
     lsof -n -i:22413 | grep LISTEN | awk '{ print $2 }' | uniq | xargs -r kill -9
 
-
     javac RepairArea/src/Interfaces/*.java RepairArea/src/MainPackage/*.java
-    mv RepairArea/src/Interfaces/*.class RepairArea/src/dir_repairArea/Interfaces/
-    mv RepairArea/src/MainPackage/*.class RepairArea/src/dir_repairArea/MainPackage/
+    cp RepairArea/src/Interfaces/*.class RepairArea/src/dir_repairArea/Interfaces/
+    cp RepairArea/src/MainPackage/*.class RepairArea/src/dir_repairArea/MainPackage/
+
+    cd Public/
+    mkdir classes
+    cd ..
+    cp -r RepairArea/src/dir_repairArea/* Public/classes/
 
     exit
 EOF
@@ -124,8 +145,13 @@ sshpass -e ssh -t -t -o StrictHostKeyChecking=no sd0401@l040101-ws03.ua.pt << EO
     lsof -n -i:22414 | grep LISTEN | awk '{ print $2 }' | uniq | xargs -r kill -9
 
     javac Park/src/Interfaces/*.java Park/src/MainPackage/*.java
-    mv Park/src/Interfaces/*.class Park/src/dir_park/Interfaces/
-    mv Park/src/MainPackage/*.class Park/src/dir_park/MainPackage/
+    cp Park/src/Interfaces/*.class Park/src/dir_park/Interfaces/
+    cp Park/src/MainPackage/*.class Park/src/dir_park/MainPackage/
+
+    cd Public/
+    mkdir classes
+    cd ..
+    cp -r Park/src/dir_park/* Public/classes/
 
     exit
 EOF
@@ -136,8 +162,13 @@ sshpass -e ssh -t -t -o StrictHostKeyChecking=no sd0401@l040101-ws04.ua.pt << EO
 
 
   javac SupplierSite/src/Interfaces/*.java SupplierSite/src/MainPackage/*.java
-  mv SupplierSite/src/Interfaces/*.class SupplierSite/src/dir_supplierSite/Interfaces/
-  mv SupplierSite/src/MainPackage/*.class SupplierSite/src/dir_supplierSite/MainPackage/
+  cp SupplierSite/src/Interfaces/*.class SupplierSite/src/dir_supplierSite/Interfaces/
+  cp SupplierSite/src/MainPackage/*.class SupplierSite/src/dir_supplierSite/MainPackage/
+
+  cd Public/
+  mkdir classes
+  cd ..
+  cp -r SupplierSite/src/dir_supplierSite/* Public/classes/
 
   exit
 EOF
@@ -148,8 +179,13 @@ sshpass -e ssh -t -t -o StrictHostKeyChecking=no sd0401@l040101-ws05.ua.pt << EO
 
 
     javac OutsideWorld/src/Interfaces/*.java OutsideWorld/src/MainPackage/*.java
-    mv OutsideWorld/src/Interfaces/*.class OutsideWorld/src/dir_outsideWorld/Interfaces/
-    mv OutsideWorld/src/MainPackage/*.class OutsideWorld/src/dir_outsideWorld/MainPackage/
+    cp OutsideWorld/src/Interfaces/*.class OutsideWorld/src/dir_outsideWorld/Interfaces/
+    cp OutsideWorld/src/MainPackage/*.class OutsideWorld/src/dir_outsideWorld/MainPackage/
+
+    cd Public/
+    mkdir classes
+    cd ..
+    cp -r OutsideWorld/src/dir_outsideWorld/* Public/classes/
 
     exit
 EOF
@@ -160,8 +196,13 @@ sshpass -e ssh -t -t -o StrictHostKeyChecking=no sd0401@l040101-ws06.ua.pt << EO
 
 
     javac Lounge/src/Interfaces/*.java Lounge/src/MainPackage/*.java
-    mv Lounge/src/Interfaces/*.class Lounge/src/dir_lounge/Interfaces/
-    mv Lounge/src/MainPackage/*.class Lounge/src/dir_lounge/MainPackage/
+    cp Lounge/src/Interfaces/*.class Lounge/src/dir_lounge/Interfaces/
+    cp Lounge/src/MainPackage/*.class Lounge/src/dir_lounge/MainPackage/
+
+    cd Public/
+    mkdir classes
+    cd ..
+    cp -r Lounge/src/dir_lounge/* Public/classes/
 
     exit
 EOF
@@ -171,9 +212,14 @@ echo -e "\n${bold}->${normal} A compilar Customer na máquina ${bold}7${normal}"
 sshpass -e ssh -t -t -o StrictHostKeyChecking=no sd0401@l040101-ws07.ua.pt << EOF
 
    javac Customer/src/Interfaces/*.java Customer/src/MainPackage/*.java Customer/src/EntitiesState/*.java
-   mv Customer/src/Interfaces/*.class Customer/src/dir_customers/Interfaces/
-   mv Customer/src/MainPackage/*.class Customer/src/dir_customers/MainPackage/
-   mv Customer/src/EntitiesState/*.class Customer/src/dir_customers/EntitiesState/
+   cp Customer/src/Interfaces/*.class Customer/src/dir_customers/Interfaces/
+   cp Customer/src/MainPackage/*.class Customer/src/dir_customers/MainPackage/
+   cp Customer/src/EntitiesState/*.class Customer/src/dir_customers/EntitiesState/
+
+   cd Public/
+   mkdir classes
+   cd ..
+   cp -r Customer/src/dir_customers/* Public/classes/
 
     exit
 EOF
@@ -182,9 +228,14 @@ echo -e "\n${bold}->${normal} A compilar Mechanic na máquina ${bold}10${normal}
 sshpass -e ssh -t -t -o StrictHostKeyChecking=no sd0401@l040101-ws10.ua.pt << EOF
 
     javac Mechanic/src/Interfaces/*.java Mechanic/src/MainPackage/*.java Mechanic/src/EntitiesState/*.java
-    mv Mechanic/src/Interfaces/*.class Mechanic/src/dir_mechanic/Interfaces/
-    mv Mechanic/src/MainPackage/*.class Mechanic/src/dir_mechanic/MainPackage/
-    mv Mechanic/src/EntitiesState/*.class Mechanic/src/dir_mechanic/EntitiesState/
+    cp Mechanic/src/Interfaces/*.class Mechanic/src/dir_mechanic/Interfaces/
+    cp Mechanic/src/MainPackage/*.class Mechanic/src/dir_mechanic/MainPackage/
+    cp Mechanic/src/EntitiesState/*.class Mechanic/src/dir_mechanic/EntitiesState/
+
+    cd Public/
+    mkdir classes
+    cd ..
+    cp -r Mechanic/src/dir_mechanic/* Public/classes/
 
     exit
 EOF
@@ -193,40 +244,42 @@ echo -e "\n${bold}->${normal} A compilar Manager na máquina ${bold}9${normal}"
 sshpass -e ssh -t -t -o StrictHostKeyChecking=no sd0401@l040101-ws09.ua.pt << EOF
 
     javac Manager/src/Interfaces/*.java Manager/src/MainPackage/*.java Manager/src/EntitiesState/*.java
-    mv Manager/src/Interfaces/*.class Manager/src/dir_manager/Interfaces/
-    mv Manager/src/MainPackage/*.class Manager/src/dir_manager/MainPackage/
-    mv Manager/src/EntitiesState/*.class Manager/src/dir_manager/EntitiesState/
+    cp Manager/src/Interfaces/*.class Manager/src/dir_manager/Interfaces/
+    cp Manager/src/MainPackage/*.class Manager/src/dir_manager/MainPackage/
+    cp Manager/src/EntitiesState/*.class Manager/src/dir_manager/EntitiesState/
+
+    cd Public/
+    mkdir classes
+    cd ..
+    cp -r Manager/src/dir_manager/* Public/classes/
 
     exit
 EOF
+echo -e "\n${bold}* Compilação completa *${normal}"
 
-
-###
 
 echo -e "\n${bold}* Execução do código em cada nó *${normal}"
 
 
 echo -e "\n${bold}->${normal} A iniciar executar Registry na máquina ${bold}1${normal}"
 sshpass -e ssh -t -t  -o StrictHostKeyChecking=no sd0401@l040101-ws01.ua.pt << EOF
-  cd Public/dir_registry/classes/MainPackage/
-  rmiregistry -Djava.rmi.server.codebase="http://192.168.8.171/sd0401/Public/dir_registry/classes/"\
-  -J-Djava.rmi.server.useCodebaseOnly=true 22410 &
-  exit
-EOF
+  lsof -n -i:22410 | grep LISTEN | awk '{ print $2 }' | uniq | xargs -r kill -9
+  lsof -n -i:22411 | grep LISTEN | awk '{ print $2 }' | uniq | xargs -r kill -9
+  lsof -n -i:22412 | grep LISTEN | awk '{ print $2 }' | uniq | xargs -r kill -9
 
-sleep 5
-echo -e "\n${bold}->${normal} A iniciar executar Registry na máquina ${bold}1${normal}"
-sshpass -e ssh -t -t  -o StrictHostKeyChecking=no sd0401@l040101-ws01.ua.pt << EOF
-  cd Public/dir_registry/classes/MainPackage/
-  java -Djava.rmi.server.codebase="http://192.168.8.171/sd0401/Public/dir_registry/classes/"\
+  rmiregistry -J-Djava.rmi.server.useCodebaseOnly=true 22410 &
+  sleep 5
+
+  cd Public/dir_registry/classes/
+  nohup java -Djava.rmi.server.codebase="http://192.168.8.171/sd0401/dir_registry/classes/"\
   -Djava.rmi.server.useCodebaseOnly=true\
   -Djava.security.policy=java.policy\
-  MainPackage.ServerRegisterRemoteObject > /dev/null 2>&1 &
+  MainPackage.ServerRegisterRemoteObject &
 
   sleep 5
-  cd ../../..
-  cd dir_logger/classes/MainPackage/
-  java -Djava.rmi.server.codebase="http://192.168.8.171/sd0401/Public/dir_registry/classes/"\
+  cd ../..
+  cd dir_logger/classes/
+  nohup java -Djava.rmi.server.codebase="http://192.168.8.171/sd0401/dir_registry/classes/"\
   -Djava.rmi.server.useCodebaseOnly=true\
   -Djava.security.policy=java.policy\
   MainPackage.MainProgram &
@@ -237,8 +290,10 @@ sleep 5
 
 echo -e "\n${bold}->${normal} A executar Repair Area na máquina ${bold}2${normal}"
 sshpass -e ssh -t -t  -o StrictHostKeyChecking=no sd0401@l040101-ws02.ua.pt << EOF
-    cd Public/classes/MainPackage/
-    java -Djava.rmi.server.codebase="http://192.168.8.171/sd0401/Public/dir_registry/classes/"\
+    lsof -n -i:22413 | grep LISTEN | awk '{ print $2 }' | uniq | xargs -r kill -9
+
+    cd Public/classes/
+    nohup java -Djava.rmi.server.codebase="http://192.168.8.171/sd0401/dir_registry/classes/"\
     -Djava.rmi.server.useCodebaseOnly=true\
     -Djava.security.policy=java.policy\
     MainPackage.MainProgram &
@@ -249,8 +304,10 @@ sleep 1
 
 echo -e "\n${bold}->${normal} A executar Park na máquina ${bold}3${normal}"
 sshpass -e ssh -t -t  -o StrictHostKeyChecking=no sd0401@l040101-ws03.ua.pt << EOF
-    cd Public/classes/MainPackage/
-    java -Djava.rmi.server.codebase="http://192.168.8.171/sd0401/Public/dir_registry/classes/"\
+    lsof -n -i:22414 | grep LISTEN | awk '{ print $2 }' | uniq | xargs -r kill -9
+
+    cd Public/classes/
+    nohup java -Djava.rmi.server.codebase="http://192.168.8.171/sd0401/dir_registry/classes/"\
     -Djava.rmi.server.useCodebaseOnly=true\
     -Djava.security.policy=java.policy\
     MainPackage.MainProgram &
@@ -261,8 +318,10 @@ sleep 1
 
 echo -e "\n${bold}->${normal} A executar Supplier Site na máquina ${bold}4${normal}"
 sshpass -e ssh -t -t  -o StrictHostKeyChecking=no sd0401@l040101-ws04.ua.pt << EOF
-    cd Public/classes/MainPackage/
-   java -Djava.rmi.server.codebase="http://192.168.8.171/sd0401/Public/dir_registry/classes/"\
+lsof -n -i:22415 | grep LISTEN | awk '{ print $2 }' | uniq | xargs -r kill -9
+
+    cd Public/classes/
+    nohup java -Djava.rmi.server.codebase="http://192.168.8.171/sd0401/dir_registry/classes/"\
     -Djava.rmi.server.useCodebaseOnly=true\
     -Djava.security.policy=java.policy\
     MainPackage.MainProgram &
@@ -273,8 +332,10 @@ sleep 1
 
 echo -e "\n${bold}->${normal} A executar Outside World na máquina ${bold}5${normal}"
 sshpass -e ssh -t -t  -o StrictHostKeyChecking=no sd0401@l040101-ws05.ua.pt << EOF
-    cd Public/classes/MainPackage/
-   java -Djava.rmi.server.codebase="http://192.168.8.171/sd0401/Public/dir_registry/classes/"\
+lsof -n -i:22416 | grep LISTEN | awk '{ print $2 }' | uniq | xargs -r kill -9
+
+    cd Public/classes/
+    nohup java -Djava.rmi.server.codebase="http://192.168.8.171/sd0401/dir_registry/classes/"\
     -Djava.rmi.server.useCodebaseOnly=true\
     -Djava.security.policy=java.policy\
     MainPackage.MainProgram &
@@ -286,8 +347,10 @@ sleep 1
 
 echo -e "\n${bold}->${normal} A executar Lounge na máquina ${bold}6${normal}"
 sshpass -e ssh -t -t  -o StrictHostKeyChecking=no sd0401@l040101-ws06.ua.pt << EOF
-    cd Public/classes/MainPackage/
-   java -Djava.rmi.server.codebase="http://192.168.8.171/sd0401/Public/dir_registry/classes/"\
+lsof -n -i:22417 | grep LISTEN | awk '{ print $2 }' | uniq | xargs -r kill -9
+
+    cd Public/classes/
+    nohup java -Djava.rmi.server.codebase="http://192.168.8.171/sd0401/dir_registry/classes/"\
     -Djava.rmi.server.useCodebaseOnly=true\
     -Djava.security.policy=java.policy\
     MainPackage.MainProgram &
@@ -301,11 +364,11 @@ sleep 5
 
 echo -e "\n${bold}->${normal} A executar Customer na máquina ${bold}7${normal}"
 sshpass -e ssh -t -t  -o StrictHostKeyChecking=no sd0401@l040101-ws07.ua.pt << EOF
-    cd Public/classes/MainPackage/
-   java -Djava.rmi.server.codebase="http://192.168.8.171/sd0401/Public/dir_registry/classes/"\
+    cd Public/classes/
+    nohup java -Djava.rmi.server.codebase="http://192.168.8.171/sd0401/dir_registry/classes/"\
     -Djava.rmi.server.useCodebaseOnly=true\
     -Djava.security.policy=java.policy\
-    MainPackage.MainProgram  &
+    MainPackage.MainProgram &
 
     exit
 EOF
@@ -314,11 +377,11 @@ sleep 1
 
 echo -e "\n${bold}->${normal} A executar Mechanic na máquina ${bold}10${normal}"
 sshpass -e ssh -t -t  -o StrictHostKeyChecking=no sd0401@l040101-ws10.ua.pt << EOF
-    cd Public/classes/MainPackage/
-   java  -Djava.rmi.server.codebase="http://192.168.8.171/sd0401/Public/dir_registry/classes/"\
+    cd Public/classes/
+    nohup java -Djava.rmi.server.codebase="http://192.168.8.171/sd0401/dir_registry/classes/"\
     -Djava.rmi.server.useCodebaseOnly=true\
     -Djava.security.policy=java.policy\
-    MainPackage.MainProgram  &
+    MainPackage.MainProgram &
 
     exit
 EOF
@@ -327,10 +390,13 @@ sleep 1
 
 echo -e "\n${bold}->${normal} A executar Manager na máquina ${bold}9${normal}"
 sshpass -e ssh -t -t -o StrictHostKeyChecking=no sd0401@l040101-ws09.ua.pt << EOF
-    cd Public/classes/MainPackage/
-   java -Djava.rmi.server.codebase="http://192.168.8.171/sd0401/Public/dir_registry/classes/"\
+    cd Public/classes/
+    nohup java -Djava.rmi.server.codebase="http://192.168.8.171/sd0401/dir_registry/classes/"\
     -Djava.rmi.server.useCodebaseOnly=true\
     -Djava.security.policy=java.policy\
     MainPackage.MainProgram  &
     exit
 EOF
+
+echo -e "\n${bold}* Execução do código completo *${normal}"
+echo -e "\n${bold}* Deploy remoto completo *${normal}"
