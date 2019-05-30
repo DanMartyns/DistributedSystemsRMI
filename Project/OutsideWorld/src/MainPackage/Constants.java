@@ -60,119 +60,123 @@ public class Constants {
 
 /////////////////////////////// Server HOST NAME & PORT ////////////////////////
 
-    /**
-     * Server registry host name.
-     */
-    public final static String REGISTRY_HOST_NAME = "localhost";
+      /**
+       * Server registry host name.
+       */
+      public final static String REGISTRY_HOST_NAME = "l040101-ws01.ua.pt";
 
-    /**
-     * Server registry server port.
-     */
-    public final static int REGISTRY_PORT = 22410;
+      /**
+       * Server registry server port.
+       */
+      public final static int REGISTRY_PORT = 22410;
 
-    /**
-     * Registry name entry for the register.
-     */
-    public final static String REGISTRY_NAME_ENTRY = "RegisterHandler";
+      /**
+       * Registry name entry for the register.
+       */
+      public final static String REGISTRY_NAME_ENTRY = "RegisterHandler";
 
 
-    /**
-     * Server registry host name.
-     */
-    public final static String SERVER_REGISTRY_HOST_NAME = "localhost";
+      /**
+       * Server registry host name.
+       */
+      public final static String SERVER_REGISTRY_HOST_NAME = "l040101-ws01.ua.pt";
 
-    /**
-     * Server registry server port.
-     */
-    public final static int SERVER_REGISTRY_PORT = 22411;
+      /**
+       * Server registry server port.
+       */
+      public final static int SERVER_REGISTRY_PORT = 22411;
 
-    /**
-     * General Repository server host name.
-     */
-    public static final String LOGGER_HOST_NAME = "localhost";
+      /**
+       * General Repository server host name.
+       */
+      public static final String LOGGER_HOST_NAME = "l040101-ws01.ua.pt";
 
-    /**
-     * General Repository server port.
-     */
-    public static final int LOGGER_PORT = 22412;
+      /**
+       * General Repository server port.
+       */
+      public static final int LOGGER_PORT = 22412;
 
-    /**
-     * General Repository server name entry for the register.
-     */
-    public final static String LOGGER_NAME_ENTRY = "LoggerHandler";
+      /**
+       * General Repository server name entry for the register.
+       */
+      public final static String LOGGER_NAME_ENTRY = "LoggerHandler";
 
-    /**
-     * Lounge server host name.
-     */
-    public static final String LOUNGE_HOST_NAME = "localhost";
+      /**
+       * Repair Area server host name.
+       */
+      public static final String REPAIRAREA_HOST_NAME = "l040101-ws03.ua.pt";
 
-    /**
-     * Lounge server port.
-     */
-    public static final int LOUNGE_PORT = 22413;
+      /**
+       * Repair Area server port.
+       */
+      public static final int REPAIRAREA_PORT = 22413;
 
-    /**
-     * Lounge server name entry for the register.
-     */
-    public final static String LOUNGE_NAME_ENTRY = "LoungeHandler";
+      /**
+       * Repair Area server name entry for the register.
+       */
+      public final static String REPAIRAREA_NAME_ENTRY = "RepairAreaHandler";
 
-    /**
-     * Outside World server host name.
-     */
-    public static final String OUTSIDEWORLD_HOST_NAME = "localhost";
-    /**
-     * Outside World server port.
-     */
-    public static final int OUTSIDEWORLD_PORT = 22414;
 
-    /**
-     * Outside World server name entry for the register.
-     */
-    public final static String OUTSIDEWORLD_NAME_ENTRY = "OutsideWorldHandler";
+      /**
+       * Park server host name.
+       */
+      public static final String PARK_HOST_NAME = "l040101-ws05.ua.pt";
 
-    /**
-     * Supplier Site server host name.
-     */
-    public static final String SUPPLIERSITE_HOST_NAME = "localhost";
-    /**
-     * Supplier Site server port.
-     */
-    public static final int SUPPLIERSITE_PORT = 22415;
+      /**
+       * Park server port.
+       */
+      public static final int PARK_PORT = 22414;
 
-    /**
-     * Supplier Site server name entry for the register.
-     */
-    public final static String SUPPLIERSITE_NAME_ENTRY = "SupplierSiteHandler";
+      /**
+       * Park server name entry for the register.
+       */
+      public final static String PARK_NAME_ENTRY = "ParkHandler";
 
-    /**
-     * Repair Area server host name.
-     */
-    public static final String REPAIRAREA_HOST_NAME = "localhost";
 
-    /**
-     * Repair Area server port.
-     */
-    public static final int REPAIRAREA_PORT = 22416;
+      /**
+       * Supplier Site server host name.
+       */
+      public static final String SUPPLIERSITE_HOST_NAME = "l040101-ws06.ua.pt";
+      /**
+       * Supplier Site server port.
+       */
+      public static final int SUPPLIERSITE_PORT = 22415;
 
-    /**
-     * Repair Area server name entry for the register.
-     */
-    public final static String REPAIRAREA_NAME_ENTRY = "RepairAreaHandler";
+      /**
+       * Supplier Site server name entry for the register.
+       */
+      public final static String SUPPLIERSITE_NAME_ENTRY = "SupplierSiteHandler";
 
-    /**
-     * Park server host name.
-     */
-    public static final String PARK_HOST_NAME = "localhost";
+      /**
+       * Outside World server host name.
+       */
+      public static final String OUTSIDEWORLD_HOST_NAME = "l040101-ws04.ua.pt";
+      /**
+       * Outside World server port.
+       */
+      public static final int OUTSIDEWORLD_PORT = 22416;
 
-    /**
-     * Park server port.
-     */
-    public static final int PARK_PORT = 22417;
+      /**
+       * Outside World server name entry for the register.
+       */
+      public final static String OUTSIDEWORLD_NAME_ENTRY = "OutsideWorldHandler";
 
-    /**
-     * Park server name entry for the register.
-     */
-    public final static String PARK_NAME_ENTRY = "ParkHandler";
+
+      /**
+       * Lounge server host name.
+       */
+      public static final String LOUNGE_HOST_NAME = "l040101-ws02.ua.pt";
+
+      /**
+       * Lounge server port.
+       */
+      public static final int LOUNGE_PORT = 22417;
+
+      /**
+       * Lounge server name entry for the register.
+       */
+      public final static String LOUNGE_NAME_ENTRY = "LoungeHandler";
+
 
 ////////////////////////////////////////////////////////////////////////////////
 }

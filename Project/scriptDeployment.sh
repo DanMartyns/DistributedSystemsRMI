@@ -181,39 +181,6 @@ sshpass -e ssh -tt -o StrictHostKeyChecking=no sd0401@l040101-ws01.ua.pt << EOF
     exit
 EOF
 
-echo -e "\n${bold}->${normal} A compilar Lounge na máquina ${bold}2${normal}"
-sshpass -e ssh -tt -o StrictHostKeyChecking=no sd0401@l040101-ws02.ua.pt << EOF
-    lsof -n -i:22417 | grep LISTEN | awk '{ print $2 }' | uniq | xargs -r kill -9
-
-    rm -rf Lounge
-
-	unzip -o Lounge.zip
-	rm Lounge.zip
-
-    javac Lounge/src/Interfaces/*.java Lounge/src/MainPackage/*.java
-    
-    mkdir -p Lounge/src/target/Interfaces/
-    mkdir -p Lounge/src/target/MainPackage/
-
-    mv Lounge/src/Interfaces/*.class Lounge/src/target/Interfaces/
-    mv Lounge/src/MainPackage/*.class Lounge/src/target/MainPackage/
-    mv Lounge/src/java.policy Lounge/src/target/ 
-
-    cd Public
-    rm -rf lounge
-    mkdir -p lounge
-
-    cd lounge
-    mkdir -p classes
-    cd ..
-
-    cd ..
-    mv Lounge/src/target/* Public/lounge/classes/
-    rm -rf Lounge
-
-    exit    
-EOF
-
 echo -e "\n${bold}->${normal} A compilar RepairArea na máquina ${bold}3${normal}"
 sshpass -e ssh -tt -o StrictHostKeyChecking=no sd0401@l040101-ws03.ua.pt << EOF
     lsof -n -i:22413 | grep LISTEN | awk '{ print $2 }' | uniq | xargs -r kill -9    
@@ -347,15 +314,48 @@ sshpass -e ssh -tt -o StrictHostKeyChecking=no sd0401@l040101-ws06.ua.pt << EOF
     exit
 EOF
 
+echo -e "\n${bold}->${normal} A compilar Lounge na máquina ${bold}2${normal}"
+sshpass -e ssh -tt -o StrictHostKeyChecking=no sd0401@l040101-ws02.ua.pt << EOF
+    lsof -n -i:22417 | grep LISTEN | awk '{ print $2 }' | uniq | xargs -r kill -9
+
+    rm -rf Lounge
+
+	unzip -o Lounge.zip
+	rm Lounge.zip
+
+    javac Lounge/src/Interfaces/*.java Lounge/src/MainPackage/*.java
+    
+    mkdir -p Lounge/src/target/Interfaces/
+    mkdir -p Lounge/src/target/MainPackage/
+
+    mv Lounge/src/Interfaces/*.class Lounge/src/target/Interfaces/
+    mv Lounge/src/MainPackage/*.class Lounge/src/target/MainPackage/
+    mv Lounge/src/java.policy Lounge/src/target/ 
+
+    cd Public
+    rm -rf lounge
+    mkdir -p lounge
+
+    cd lounge
+    mkdir -p classes
+    cd ..
+
+    cd ..
+    mv Lounge/src/target/* Public/lounge/classes/
+    rm -rf Lounge
+
+    exit    
+EOF
+
 
 echo -e "\n${bold}->${normal} A compilar Manager na máquina ${bold}7${normal}"
 sshpass -e ssh -tt -o StrictHostKeyChecking=no sd0401@l040101-ws07.ua.pt << EOF
-    rm -rf Manager
-
-	unzip -o Manager.zip
+	rm -rf Manager
+    
+    unzip -o Manager.zip
 	rm Manager.zip
 
-    javac Manager/src/Interfaces/*.java Manager/src/MainPackage/*.java Manager/src/target/EntitiesState/*.java
+    javac Manager/src/Interfaces/*.java Manager/src/MainPackage/*.java Manager/src/EntitiesState/*.java
 
     mkdir -p Manager/src/target/Interfaces/
     mkdir -p Manager/src/target/MainPackage/
@@ -376,7 +376,6 @@ sshpass -e ssh -tt -o StrictHostKeyChecking=no sd0401@l040101-ws07.ua.pt << EOF
 
     cd ..
     mv Manager/src/target/* Public/manager/classes/
-    rm -rf Manager
 
     exit
 EOF
@@ -388,7 +387,7 @@ sshpass -e ssh -tt -o StrictHostKeyChecking=no sd0401@l040101-ws08.ua.pt << EOF
     unzip -o Mechanic.zip
 	rm Mechanic.zip
 
-    javac Mechanic/src/Interfaces/*.java Mechanic/src/MainPackage/*.java Mechanic/src/target/EntitiesState/*.java
+    javac Mechanic/src/Interfaces/*.java Mechanic/src/MainPackage/*.java Mechanic/src/EntitiesState/*.java
 
     mkdir -p Mechanic/src/target/Interfaces/
     mkdir -p Mechanic/src/target/MainPackage/
@@ -421,7 +420,7 @@ sshpass -e ssh -tt -o StrictHostKeyChecking=no sd0401@l040101-ws09.ua.pt << EOF
 	unzip -o Customer.zip
 	rm Customer.zip
 
-    javac Customer/src/Interfaces/*.java Customer/src/MainPackage/*.java Customer/src/target/EntitiesState/*.java
+    javac Customer/src/Interfaces/*.java Customer/src/MainPackage/*.java Customer/src/EntitiesState/*.java
 
     mkdir -p Customer/src/target/Interfaces/
     mkdir -p Customer/src/target/MainPackage/
@@ -481,19 +480,6 @@ EOF
 
 sleep 5
 
-echo -e "\n${bold}->${normal} A executar Lounge na máquina ${bold}2${normal}"
-sshpass -e ssh -tt -o StrictHostKeyChecking=no sd0401@l040101-ws02.ua.pt << EOF
-    cd Public/lounge/classes/
-    nohup java -Djava.rmi.server.codebase="http://l040101-ws01.ua.pt/sd0401/registry/classes/"\
-    -Djava.rmi.server.useCodebaseOnly=true\
-    -Djava.security.policy=java.policy\
-    MainPackage.MainProgram > printLounge.txt &
-
-    exit
-EOF
-
-sleep 1
-
 echo -e "\n${bold}->${normal} A executar Repair Area na máquina ${bold}3${normal}"
 sshpass -e ssh -tt -o StrictHostKeyChecking=no sd0401@l040101-ws03.ua.pt << EOF
     cd Public/repairArea/classes/
@@ -505,7 +491,7 @@ sshpass -e ssh -tt -o StrictHostKeyChecking=no sd0401@l040101-ws03.ua.pt << EOF
     exit
 EOF
 
-sleep 1
+sleep 5
 
 echo -e "\n${bold}->${normal} A executar OutsideWorld na máquina ${bold}4${normal}"
 sshpass -e ssh -tt -o StrictHostKeyChecking=no sd0401@l040101-ws04.ua.pt << EOF
@@ -518,7 +504,7 @@ sshpass -e ssh -tt -o StrictHostKeyChecking=no sd0401@l040101-ws04.ua.pt << EOF
     exit
 EOF
 
-sleep 1
+sleep 5
 
 echo -e "\n${bold}->${normal} A executar Park na máquina ${bold}5${normal}"
 sshpass -e ssh -tt -o StrictHostKeyChecking=no sd0401@l040101-ws05.ua.pt << EOF
@@ -531,7 +517,7 @@ sshpass -e ssh -tt -o StrictHostKeyChecking=no sd0401@l040101-ws05.ua.pt << EOF
     exit
 EOF
 
-sleep 1
+sleep 5
 
 echo -e "\n${bold}->${normal} A executar SupplierSite na máquina ${bold}6${normal}"
 sshpass -e ssh -tt -o StrictHostKeyChecking=no sd0401@l040101-ws06.ua.pt << EOF
@@ -544,9 +530,22 @@ sshpass -e ssh -tt -o StrictHostKeyChecking=no sd0401@l040101-ws06.ua.pt << EOF
     exit
 EOF
 
+sleep 5
+
+echo -e "\n${bold}->${normal} A executar Lounge na máquina ${bold}2${normal}"
+sshpass -e ssh -tt -o StrictHostKeyChecking=no sd0401@l040101-ws02.ua.pt << EOF
+    cd Public/lounge/classes/
+    nohup java -Djava.rmi.server.codebase="http://l040101-ws01.ua.pt/sd0401/registry/classes/"\
+    -Djava.rmi.server.useCodebaseOnly=true\
+    -Djava.security.policy=java.policy\
+    MainPackage.MainProgram > printLounge.txt &
+
+    exit
+EOF
+
 # Wait for the shared regions to be launched before lanching the intervening enities
 
-sleep 5
+sleep 10
 
 echo -e "\n${bold}->${normal} A executar Manager na máquina ${bold}7${normal}"
 sshpass -e ssh -tt -o StrictHostKeyChecking=no sd0401@l040101-ws07.ua.pt << EOF
@@ -559,7 +558,7 @@ sshpass -e ssh -tt -o StrictHostKeyChecking=no sd0401@l040101-ws07.ua.pt << EOF
     exit
 EOF
 
-sleep 1
+sleep 5
 
 echo -e "\n${bold}->${normal} A executar Mechanic na máquina ${bold}8${normal}"
 sshpass -e ssh -tt -o StrictHostKeyChecking=no sd0401@l040101-ws08.ua.pt << EOF
@@ -572,7 +571,7 @@ sshpass -e ssh -tt -o StrictHostKeyChecking=no sd0401@l040101-ws08.ua.pt << EOF
     exit
 EOF
 
-sleep 1
+sleep 5
 
 echo -e "\n${bold}->${normal} A executar Customer na máquina ${bold}9${normal}"
 sshpass -e ssh -tt -o StrictHostKeyChecking=no sd0401@l040101-ws09.ua.pt << EOF
@@ -584,3 +583,5 @@ sshpass -e ssh -tt -o StrictHostKeyChecking=no sd0401@l040101-ws09.ua.pt << EOF
 
     exit
 EOF
+
+

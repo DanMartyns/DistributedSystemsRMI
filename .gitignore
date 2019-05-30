@@ -44,3 +44,8 @@ hs_err_pid*
 /Project/Park/.DS_Store
 /Project/GeneralInformationRepo/.DS_Store
 .DS_Store
+/Project/Lounge/dist/
+/Project/Lounge/build/
+/Project/GeneralInformationRepo/build/
+/Project/GeneralInformationRepo/dist/
+/Project/Results/

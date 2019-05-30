@@ -23,6 +23,8 @@ public class MainProgram {
      */
     public static void main(String[] args) {
         
+        long startTime = System.nanoTime();
+        
         /* get location of the generic registry service */
         String rmiRegHostName = Constants.REGISTRY_HOST_NAME;
         int rmiRegPortNumb = Constants.REGISTRY_PORT;
@@ -46,21 +48,6 @@ public class MainProgram {
           System.exit (1);
         }
         GenericIO.writelnString ("RMI registry was created!");
-        
-                /* Look for the other entities in the registry */
-        try
-        {
-            loungeInt = (ILounge) registry.lookup (Constants.LOUNGE_NAME_ENTRY);
-        }
-        catch (NotBoundException ex) {
-            System.out.println("Lounge is not registered: " + ex.getMessage () );
-            ex.printStackTrace ();
-            System.exit(1);
-        } catch (RemoteException ex) {
-            System.out.println("Exception thrown while locating Lounge: " + ex.getMessage () );
-            ex.printStackTrace ();
-            System.exit (1);
-        }
 
         try
         {
@@ -104,6 +91,21 @@ public class MainProgram {
             System.exit (1);
         }
         
+        /* Look for the other entities in the registry */
+        try
+        {
+            loungeInt = (ILounge) registry.lookup (Constants.LOUNGE_NAME_ENTRY);
+        }
+        catch (NotBoundException ex) {
+            System.out.println("Lounge is not registered: " + ex.getMessage () );
+            ex.printStackTrace ();
+            System.exit(1);
+        } catch (RemoteException ex) {
+            System.out.println("Exception thrown while locating Lounge: " + ex.getMessage () );
+            ex.printStackTrace ();
+            System.exit (1);
+        }        
+        
         GenericIO.writelnString ("Starting Manager...");
         
         /**
@@ -125,6 +127,10 @@ public class MainProgram {
             ex.printStackTrace ();
             System.exit (1);
         }
+        long endTime = System.nanoTime();
+        long totalTime = endTime - startTime;
+        System.out.println("Run time :"+(double)(totalTime/1000000000));
+        
     }
     
 }

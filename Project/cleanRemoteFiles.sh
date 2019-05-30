@@ -8,13 +8,11 @@ export SSHPASS='enterro2019'
 
 ###
 
-echo -e "\n${bold}->${normal} A eliminar Registry e Logger da máquina ${bold}1${normal}"
+echo -e "\n${bold}->${normal} A eliminar Registry máquina ${bold}1${normal}"
 sshpass -e ssh -t -t -o StrictHostKeyChecking=no sd0401@l040101-ws01.ua.pt << EOF
 	rm -rf Registry
-	rm -rf GeneralInformationRepo
 	cd Public
 	rm -rf dir_registry
-	rm -rf dir_logger
 	exit
 EOF
 
@@ -65,6 +63,15 @@ sshpass -e ssh -t -t -o StrictHostKeyChecking=no sd0401@l040101-ws07.ua.pt << EO
 	rm -rf classes
 	exit
 EOF
+
+echo -e "\n${bold}->${normal} A eliminar Logger da máquina ${bold}8${normal}"
+sshpass -e ssh -t -t -o StrictHostKeyChecking=no sd0401@l040101-ws08.ua.pt << EOF
+	rm -rf GeneralInformationRepo
+	cd Public
+	rm -rf dir_logger
+	exit
+EOF
+
 echo -e "\n${bold}->${normal} A eliminar Mechanic da máquina ${bold}10${normal}"
 sshpass -e ssh -t -t -o StrictHostKeyChecking=no sd0401@l040101-ws10.ua.pt << EOF
 	rm -rf Mechanic

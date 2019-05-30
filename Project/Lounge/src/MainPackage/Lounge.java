@@ -358,7 +358,6 @@ public class Lounge implements ILounge {
         logger.setFlagCPieces(getting_new_parts.contains("2") ? "2" : "--");
         shutdownNumber++;
         if(shutdownNumber==3){
-            logger.serviceEnd();
             MainProgram.serviceEnd = true;
             notifyAll();
             GenericIO.writelnString(" Lounge will end all servers, include yourself ");

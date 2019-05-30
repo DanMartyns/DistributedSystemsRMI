@@ -47,24 +47,10 @@ public class MainProgram {
         }
         GenericIO.writelnString ("RMI registry was created!");
         
-                /* Look for the other entities in the registry */
-        try
-        {
-            loungeInt = (ILounge) registry.lookup (Constants.LOUNGE_NAME_ENTRY);
-        }
-        catch (NotBoundException ex) {
-            System.out.println("Lounge is not registered: " + ex.getMessage () );
-            ex.printStackTrace ();
-            System.exit(1);
-        } catch (RemoteException ex) {
-            System.out.println("Exception thrown while locating Lounge: " + ex.getMessage () );
-            ex.printStackTrace ();
-            System.exit (1);
-        }
         
         try
         {
-            parkInt = (IPark) registry.lookup (Constants.PARK_NAME_ENTRY);
+            parkInt = (IPark) registry.lookup(Constants.PARK_NAME_ENTRY);
         }
         catch (NotBoundException ex) {
             System.out.println("Park is not registered: " + ex.getMessage () );
@@ -86,6 +72,21 @@ public class MainProgram {
             System.exit(1);
         } catch (RemoteException ex) {
             System.out.println("Exception thrown while locating Repair Area: " + ex.getMessage () );
+            ex.printStackTrace ();
+            System.exit (1);
+        }
+
+        /* Look for the other entities in the registry */
+        try
+        {
+            loungeInt = (ILounge) registry.lookup (Constants.LOUNGE_NAME_ENTRY);
+        }
+        catch (NotBoundException ex) {
+            System.out.println("Lounge is not registered: " + ex.getMessage () );
+            ex.printStackTrace ();
+            System.exit(1);
+        } catch (RemoteException ex) {
+            System.out.println("Exception thrown while locating Lounge: " + ex.getMessage () );
             ex.printStackTrace ();
             System.exit (1);
         }

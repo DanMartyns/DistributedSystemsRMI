@@ -90,7 +90,7 @@ cd ..
 
 echo -e "\n${bold}->${normal} A executar Registry"
 cd Registry/src/dir_registry/
- java -Djava.rmi.server.codebase="file:///Users/giselapinto/Desktop/4°ano/SD/Pratica/Trabalho3/DistributedSystemsRMI/Project/Registry/src/dir_registry/"\
+ java -Djava.rmi.server.codebase="file:///home/danielmartins/Documentos/Universidade/SD/Assignment3/DistributedSystemsRMI/Project/Registry/src/dir_registry/"\
      -Djava.rmi.server.useCodebaseOnly=false\
      -Djava.security.policy=java.policy\
      MainPackage.ServerRegisterRemoteObject &
@@ -98,7 +98,7 @@ cd ../../..
 sleep 3
 echo -e "\n${bold}->${normal} A executar Logger"
 cd GeneralInformationRepo/src/dir_logger/
- java -Djava.rmi.server.codebase="file:///Users/giselapinto/Desktop/4°ano/SD/Pratica/Trabalho3/DistributedSystemsRMI/Project/GeneralInformationRepo/src/dir_logger/"\
+ java -Djava.rmi.server.codebase="file:////home/danielmartins/Documentos/Universidade/SD/Assignment3/DistributedSystemsRMI/Project/GeneralInformationRepo/src/dir_logger/"\
      -Djava.rmi.server.useCodebaseOnly=false\
      -Djava.security.policy=java.policy\
      MainPackage.MainProgram &
@@ -106,7 +106,7 @@ cd ../../..
 sleep 3
 echo -e "\n${bold}->${normal} A executar Repair Area"
 cd RepairArea/src/dir_repairArea/
- java -Djava.rmi.server.codebase="file:///Users/giselapinto/Desktop/4°ano/SD/Pratica/Trabalho3/DistributedSystemsRMI/Project/RepairArea/src/dir_repairArea/"\
+ java -Djava.rmi.server.codebase="file:///home/danielmartins/Documentos/Universidade/SD/Assignment3/DistributedSystemsRMI/Project/RepairArea/src/dir_repairArea/"\
      -Djava.rmi.server.useCodebaseOnly=false\
      -Djava.security.policy=java.policy\
      MainPackage.MainProgram &
@@ -114,7 +114,7 @@ cd ../../..
 sleep 3
 echo -e "\n${bold}->${normal} A executar Park"
 cd Park/src/dir_park/
- java -Djava.rmi.server.codebase="file:///Users/giselapinto/Desktop/4°ano/SD/Pratica/Trabalho3/DistributedSystemsRMI/Project/Park/src/dir_park/"\
+ java -Djava.rmi.server.codebase="file:///home/danielmartins/Documentos/Universidade/SD/Assignment3/DistributedSystemsRMI/Project/Park/src/dir_park/"\
      -Djava.rmi.server.useCodebaseOnly=false\
      -Djava.security.policy=java.policy\
      MainPackage.MainProgram &
@@ -122,7 +122,7 @@ cd ../../..
 sleep 3
 echo -e "\n${bold}->${normal} A executar Supplier Site"
 cd SupplierSite/src/dir_supplierSite/
- java -Djava.rmi.server.codebase="file:///Users/giselapinto/Desktop/4°ano/SD/Pratica/Trabalho3/DistributedSystemsRMI/Project/SupplierSite/src/dir_supplierSite/"\
+ java -Djava.rmi.server.codebase="file:///home/danielmartins/Documentos/Universidade/SD/Assignment3/DistributedSystemsRMI/Project/SupplierSite/src/dir_supplierSite/"\
      -Djava.rmi.server.useCodebaseOnly=false\
      -Djava.security.policy=java.policy\
      MainPackage.MainProgram &
@@ -130,7 +130,7 @@ cd ../../..
 sleep 3
 echo -e "\n${bold}->${normal} A executar Outside World"
 cd OutsideWorld/src/dir_outsideWorld/
- java -Djava.rmi.server.codebase="file:///Users/giselapinto/Desktop/4°ano/SD/Pratica/Trabalho3/DistributedSystemsRMI/Project/OutsideWorld/src/dir_outsideWorld/"\
+ java -Djava.rmi.server.codebase="file:///home/danielmartins/Documentos/Universidade/SD/Assignment3/DistributedSystemsRMI/Project/OutsideWorld/src/dir_outsideWorld/"\
      -Djava.rmi.server.useCodebaseOnly=false\
      -Djava.security.policy=java.policy\
      MainPackage.MainProgram &
@@ -138,7 +138,7 @@ cd ../../..
 sleep 3
 echo -e "\n${bold}->${normal} A executar Lounge"
 cd Lounge/src/dir_lounge/
- java -Djava.rmi.server.codebase="file:///Users/giselapinto/Desktop/4°ano/SD/Pratica/Trabalho3/DistributedSystemsRMI/Project/Lounge/src/dir_lounge/"\
+ java -Djava.rmi.server.codebase="file:///home/danielmartins/Documentos/Universidade/SD/Assignment3/DistributedSystemsRMI/Project/Lounge/src/dir_lounge/"\
      -Djava.rmi.server.useCodebaseOnly=false\
      -Djava.security.policy=java.policy\
      MainPackage.MainProgram &
@@ -146,21 +146,21 @@ cd ../../..
 sleep 3
 echo -e "\n${bold}->${normal} A executar Customer"
 cd Customer/src/dir_customers/
- java -Djava.rmi.server.codebase="file:///Users/giselapinto/Desktop/4°ano/SD/Pratica/Trabalho3/DistributedSystemsRMI/Project/Customer/src/dir_customers/"\
+ java -Djava.rmi.server.codebase="file:///home/danielmartins/Documentos/Universidade/SD/Assignment3/DistributedSystemsRMI/Project/Customer/src/dir_customers/"\
      -Djava.rmi.server.useCodebaseOnly=false\
      MainPackage.MainProgram &
 cd ../../..
 sleep 3
 echo -e "\n${bold}->${normal} A executar Mechanic"
 cd Mechanic/src/dir_mechanic/
- java -Djava.rmi.server.codebase="file:///Users/giselapinto/Desktop/4°ano/SD/Pratica/Trabalho3/DistributedSystemsRMI/Project/Mechanic/src/dir_mechanic/"\
+ java -Djava.rmi.server.codebase="file:///home/danielmartins/Documentos/Universidade/SD/Assignment3/DistributedSystemsRMI/Project/Mechanic/src/dir_mechanic/"\
      -Djava.rmi.server.useCodebaseOnly=false\
      MainPackage.MainProgram &
 cd ../../..
 sleep 3
 echo -e "\n${bold}->${normal} A executar Manager"
 cd Manager/src/dir_manager/
- java -Djava.rmi.server.codebase="file:///Users/giselapinto/Desktop/4°ano/SD/Pratica/Trabalho3/DistributedSystemsRMI/Project/Manager/src/dir_manager/"\
+ java -Djava.rmi.server.codebase="file:///home/danielmartins/Documentos/Universidade/SD/Assignment3/DistributedSystemsRMI/Project/Manager/src/dir_manager/"\
      -Djava.rmi.server.useCodebaseOnly=false\
      MainPackage.MainProgram &
 cd ../../..

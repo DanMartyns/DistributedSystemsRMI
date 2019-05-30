@@ -8,7 +8,6 @@ package MainPackage;
 import Interfaces.*;
 import static MainPackage.Constants.FILE_NAME;
 import genclass.GenericIO;
-import java.rmi.AlreadyBoundException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
